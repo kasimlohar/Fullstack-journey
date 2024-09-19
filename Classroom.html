@@ -93,7 +93,7 @@
         <br/>
         <br/>
         <!-- Forms in HTML -->
-        <form action="https://www.youtube.com/results">
+        <form action="/action">
             default
             <input />  <!-- default test type -->
             <br/>
@@ -113,7 +113,9 @@
             <input type="color" />
             <br/>
             <br/>
-
+        </form>
+            
+        <form action="/action">
             <!-- Label -->
             <label>
                 Username :
@@ -126,7 +128,9 @@
             </label>
             <br/>
             <br/>
+        </form>
 
+        <form action="/action">
             <!-- Label Classical Approach-->
             <div>
                 <label for="username">Username :</label>
@@ -137,7 +141,9 @@
                 <input type="password" id="password" placeholder="Enter password.."/>
             </div>
             <br/>
-
+        </form>
+            
+        <form action="/action">
             <!--Button Elements-->
             <button>Submit</button> <!-- it forward to form "/action" (default) -->
             <!--Type Attributes-->
@@ -151,7 +157,9 @@
             <input type="submit" value="click here"/>
             <br/>
             <br/>
-            
+        </form>
+
+        <form action="https://www.youtube.com/results">
             <!--Name Attribute-->
             <label for="username1">Username :</label>
             <input type="text" placeholder="username" id="username1" name="username" />
@@ -165,6 +173,32 @@
             <label for="username1">Search :</label>
             <input type="text" placeholder="search on youtube" id="username1" name="search_query" />
             <button>Submit</button>
+            <br/>
+            <br/>
         </form>
+
+        <form action="/action">
+            <!--Practice Qs -->
+            <div>
+                <label for="Firstname"><h1>Registration Form</h1></label>
+                <br/>
+                <input type="text" placeholder="First Name" id="Firstname" name="FN"/>
+                <input type="text" placeholder="Last Name" id="Firstname" name="LN"/>
+                <br/>
+                <label for="gender">Please select gender</label>
+                <select name="gender" id="gender">
+                    <option value="male" selected>Male</option>
+                    <option value="fmale" >Female</option>
+                    <option value="other" >Other</option>
+                </select>
+                <br/>
+                <label for="terms">Do you agree to all terms of service?</label>
+                <input type="checkbox" name = "terms" id="terms" checked />
+                <label for="terms">Yes, I agree</label>
+                <br/>
+                <button>Register</button>
+            </div>
+        </form>
+            
     </body>
 </html>
