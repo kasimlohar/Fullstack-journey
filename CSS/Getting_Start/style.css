@@ -1,7 +1,36 @@
-/* color Property */
-/* using color name */
-p {
-    color: #0000ff;
+/* Assignment Questions */
+p{
+    color: red;
+    text-align: center;
+    background-color: #964B00;
+    font-family: Georgia;
+    line-height: 30px;
+    
+}
+
+h1{
+    text-align: center;
+    font-family: Georgia;
+    
+}
+
+h3{
+    color: black;
+    text-align: center;
+    font-family: Georgia;
+}
+
+a{
+    color: rgb(0, 255, 0);
+    text-decoration: none;
+}
+
+button{
+    background-color: white;
+    color: blueviolet;
 
 }
 
+.underline-word{
+    text-decoration: underline;
+}
