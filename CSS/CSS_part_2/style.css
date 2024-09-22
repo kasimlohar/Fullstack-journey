@@ -30,3 +30,14 @@ h3,button {
     background-color: green;
     color: aliceblue;
 }
+
+/* Decendent selector */
+
+
+.post a {
+    background-color: yellow;
+}
+
+nav ul li a {
+    color: hotpink;
+}
