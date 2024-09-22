@@ -23,3 +23,10 @@ h3,button {
     background-color: #f52936;
     color: white;
 }
+
+/* Class selector */
+
+.upvote {
+    background-color: green;
+    color: aliceblue;
+}
