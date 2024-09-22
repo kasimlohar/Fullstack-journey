@@ -33,11 +33,21 @@ h3,button {
 
 /* Decendent selector */
 
-
 .post a {
     background-color: yellow;
 }
 
 nav ul li a {
     color: hotpink;
+}
+
+/* ADjacent sibling combinator */
+
+p + h3 {
+    color: chocolate;
+}
+
+.upvote + button {
+    color: rgb(253, 253, 255);
+    background-color: rgb(125, 49, 196);
 }
