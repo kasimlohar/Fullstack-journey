@@ -107,5 +107,19 @@ input[type="radio"]:checked {
 /* nth of type */ 
 div:nth-of-type(2n) {
     background-color: blanchedalmond;
-    
+
+}
+
+/* psedo element */
+
+h1::first-letter {
+    color: black;
+}
+
+p::first-line {
+    color: blue;
+}
+
+p::selection {
+    background-color: rgb(162, 247, 162)
 }
