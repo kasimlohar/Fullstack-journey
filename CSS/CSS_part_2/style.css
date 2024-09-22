@@ -71,3 +71,41 @@ input[type="password"] {
 input[type] {
     background-color: ghostwhite;
 }
+
+/* Practice Qs */
+
+#myID p {
+    color: green;
+}
+
+/* OR */
+
+div[id = "myID"] {
+    color: green;
+}
+
+/* Pseudo Class */
+
+/* hover */
+button:hover {
+    background-color: black;
+    color: white;
+}
+
+/* active */
+button:active {
+    background-color: hotpink;
+}
+
+/* :checked */
+
+input[type="radio"]:checked {
+    color: red;
+    font-weight: bold;
+}
+
+/* nth of type */ 
+div:nth-of-type(2n) {
+    background-color: blanchedalmond;
+    
+}
