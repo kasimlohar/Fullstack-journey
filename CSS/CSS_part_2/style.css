@@ -7,9 +7,19 @@
 /* Element selector */
 
 h1{
-    color: red;
+    color: #f52936;
 }
 
 h3,button {
     color:blue;
+}
+
+/* Id Selector */
+#login {
+    background-color: white;
+}
+
+#signup {
+    background-color: #f52936;
+    color: white;
 }
