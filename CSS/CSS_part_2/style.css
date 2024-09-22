@@ -123,3 +123,8 @@ p::first-line {
 p::selection {
     background-color: rgb(162, 247, 162)
 }
+
+/* !important */
+h2{
+    color: black;
+}
