@@ -1,3 +1,15 @@
+/* Universal selector */
+
 * {
     font-family: 'Courier New';
+}
+
+/* Element selector */
+
+h1{
+    color: red;
+}
+
+h3,button {
+    color:blue;
 }
