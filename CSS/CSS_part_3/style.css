@@ -1,0 +1,13 @@
+div {
+    background-color: tan;
+    border-radius: 10px;
+}
+h1 {
+    text-align: center;
+    font-family: serif;
+}
+li {
+    color: brown;
+    font-family: Arial;
+    display: inline-block;
+}
