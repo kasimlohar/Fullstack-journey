@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const Listing = require('./models/listing.js');
 
 async function main() {
     await mongoose.connect('mongodb://localhost:27017/wanderlust', {
@@ -19,6 +20,19 @@ main().then(() => {
 
 app.get('/', (req, res) => {
     res.send('Hey I am root');
+});
+
+app.get("/testListing", async (req, res) => {
+    let sampleListing = new Listing({
+        title: "Test Listing",
+        description: "This is a test listing",
+        price: 1200,
+        location: "Toronto",
+        country: "Canada",
+    })
+    await sampleListing.save();
+    console.log('Sample was saved');
+    res.send('successful testing');
 });
 
 app.listen(8080, () => {
