@@ -34,12 +34,26 @@ app.get('/listings', async (req, res) => {
     res.render("./listings/index.ejs", {allListings});
 });
 
+//New Route
+app.get('/listings/new', (req, res) => {
+    res.render("listings/new.ejs");
+});
+
 //Show route
 app.get('/listings/:id', async (req, res) => {
     const {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("./listings/show.ejs", {listing});
 });
+
+//Create Route
+app.post('/listings', async (req, res) => {
+    const newListing = new Listing(req.body);
+    await newListing.save();
+    res.redirect(`/listings/${newListing._id}`);
+});
+
+
 
 // app.get("/testListing", async (req, res) => {
 //     let sampleListing = new Listing({
@@ -53,6 +67,8 @@ app.get('/listings/:id', async (req, res) => {
 //     console.log('Sample was saved');
 //     res.send('successful testing');
 // });
+
+
 
 app.listen(8080, () => {
     console.log('Server is running on port 8080');
