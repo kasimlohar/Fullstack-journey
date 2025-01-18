@@ -1,23 +1,23 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
+const Activity = require("./models/Activity.js");  // Fix path to relative directory
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-require("dotenv").config();  // To use environment variables
+
 
 // MongoDB connection
 async function main() {
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Connected to MongoDB");
-  } catch (err) {
-    console.log("Failed to connect to MongoDB", err);
-  }
+    try {
+        await mongoose.connect("mongodb://localhost:27017/wanderlust", {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log("Connected to MongoDB");
+    } catch (err) {
+        console.log("Failed to connect to MongoDB", err);
+    }
 }
 
 main();
@@ -25,10 +25,10 @@ main();
 // Setup for EJS and Static Files
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));  // Move this line before routes
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
-app.use(express.static(path.join(__dirname, "public")));
 
 // Root route
 app.get("/", (req, res) => {
@@ -38,8 +38,8 @@ app.get("/", (req, res) => {
 // Index route for displaying all activities
 app.get("/activities", async (req, res) => {
   try {
-    const allListings = await Listing.find({});
-    res.render("./activities/index.ejs", { allListings });
+    const allActivities = await Activity.find({});
+    res.render("./activities/index.ejs", { allActivities });
   } catch (err) {
     console.log("Error fetching activities:", err);
     res.status(500).send("Error fetching activities.");
@@ -55,8 +55,8 @@ app.get("/activities/new", (req, res) => {
 app.get("/activities/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const listing = await Listing.findById(id);
-    res.render("./activities/show.ejs", { listing });
+    const activity = await Activity.findById(id);
+    res.render("./activities/show.ejs", { activity });
   } catch (err) {
     console.log("Error fetching activity:", err);
     res.status(404).send("Activity not found.");
@@ -65,10 +65,10 @@ app.get("/activities/:id", async (req, res) => {
 
 // Create route for adding a new activity to the database
 app.post("/activities", async (req, res) => {
-  const newListing = new Listing(req.body);
+  const newActivity = new Activity(req.body);  // Changed from Listing to Activity
   try {
-    await newListing.save();
-    res.redirect(`/activities/${newListing._id}`);
+    await newActivity.save();
+    res.redirect(`/activities/${newActivity._id}`);
   } catch (err) {
     console.log("Error creating activity:", err);
     res.status(400).send("Failed to create activity.");
@@ -79,8 +79,8 @@ app.post("/activities", async (req, res) => {
 app.get("/activities/:id/edit", async (req, res) => {
   const { id } = req.params;
   try {
-    const listing = await Listing.findById(id);
-    res.render("./activities/edit.ejs", { listing });
+    const activity = await Activity.findById(id);
+    res.render("./activities/edit.ejs", { activity });
   } catch (err) {
     console.log("Error fetching activity for editing:", err);
     res.status(404).send("Activity not found.");
@@ -91,8 +91,8 @@ app.get("/activities/:id/edit", async (req, res) => {
 app.put("/activities/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const listing = await Listing.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
-    res.redirect(`/activities/${listing._id}`);
+    const activity = await Activity.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+    res.redirect(`/activities/${activity._id}`);
   } catch (err) {
     console.log("Error updating activity:", err);
     res.status(400).send("Failed to update activity.");
@@ -103,12 +103,23 @@ app.put("/activities/:id", async (req, res) => {
 app.delete("/activities/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    await Listing.findByIdAndDelete(id);
+    await Activity.findByIdAndDelete(id);
     res.redirect("/activities");
   } catch (err) {
     console.log("Error deleting activity:", err);
     res.status(400).send("Failed to delete activity.");
   }
+});
+
+// Test route to check database contents
+app.get("/test", async (req, res) => {
+    try {
+        const activities = await Activity.find({});
+        res.json(activities);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).json({ error: "Failed to fetch activities" });
+    }
 });
 
 // Server Setup

@@ -1,0 +1,29 @@
+<% layout('layouts/boilerplate') %>
+
+<h1 class="text-center mb-4">All Activities</h1>
+<div class="container">
+  <div class="row">
+    <% allActivities.forEach(activity => { %>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card">
+          <img src="<%= activity.images[0].url %>" class="card-img-top" alt="<%= activity.name %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= activity.name %></h5>
+            <p class="card-text text-truncate"><%= activity.description %></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-info"><%= activity.difficulty %></span>
+              <span class="activity-price">$<%= activity.price %></span>
+            </div>
+            <p class="activity-location mt-2">
+              <i class="fas fa-map-marker-alt"></i> 
+              <%= activity.location %>, <%= activity.country %>
+            </p>
+            <a href="/activities/<%= activity._id %>" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+

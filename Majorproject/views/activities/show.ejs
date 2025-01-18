@@ -1,0 +1,29 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <img src="<%= activity.images[0].url %>" class="card-img-top" alt="<%= activity.name %>">
+        <div class="card-body">
+          <h2 class="card-title"><%= activity.name %></h2>
+          <p class="card-text"><%= activity.description %></p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Location:</strong> <%= activity.location %>, <%= activity.country %></li>
+            <li class="list-group-item"><strong>Difficulty:</strong> <%= activity.difficulty %></li>
+            <li class="list-group-item"><strong>Duration:</strong> <%= activity.duration %></li>
+            <li class="list-group-item"><strong>Price:</strong> $<%= activity.price %></li>
+            <li class="list-group-item"><strong>Guide Required:</strong> <%= activity.guideRequired ? 'Yes' : 'No' %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="d-flex">
+        <a href="/activities/<%= activity._id %>/edit" class="btn btn-info me-2">Edit</a>
+        <form action="/activities/<%= activity._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

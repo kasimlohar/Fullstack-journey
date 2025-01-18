@@ -1,27 +1,33 @@
 const mongoose = require("mongoose");
-const data = require("./data.js");
-const Listing = require("../models/Activity.js");
+const activities = require("./data.js");
+const Activity = require("../models/Activity.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
-main().then(() => {
-    console.log('Connected to MongoDB');
-}).catch(err => {
-    console.log('Failed to connect to MongoDB', err);
-});
+async function initDB() {
+    try {
+        // Connect to MongoDB
+        await mongoose.connect(MONGO_URL);
+        console.log("MongoDB Connected...");
 
-async function main() {
-    await mongoose.connect(MONGO_URL);
+        // Delete existing activities
+        const deleted = await Activity.deleteMany({});
+        console.log(`Deleted ${deleted.deletedCount} activities`);
+
+        // Insert new activities
+        const inserted = await Activity.insertMany(activities);
+        console.log(`Added ${inserted.length} new activities`);
+
+        console.log("Database initialized successfully!");
+
+    } catch (err) {
+        console.error("ERROR: ", err);
+    } finally {
+        mongoose.connection.close();
+    }
 }
 
-const initDB = async () => {
-    try {
-        await Listing.deleteMany({});
-        await Listing.insertMany(data);
-        console.log('Data was initialized');
-    } catch (err) {
-        console.log('Error initializing data:', err);
-    }
-};
-
-initDB();
+// Run the function
+initDB().then(() => {
+    console.log("Finished database initialization");
+});

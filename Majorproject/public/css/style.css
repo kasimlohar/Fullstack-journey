@@ -1,7 +1,37 @@
-/* body {
-    background-color: pink;
-} */
+/* Base styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
 
-/* .navbar {
-    height: ;
-} */
+/* Card styles */
+.card {
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Activity details */
+.activity-price {
+    font-size: 1.2rem;
+    color: #28a745;
+}
+
+.activity-location {
+    color: #6c757d;
+}
+
+/* Badges */
+.badge {
+    margin-right: 5px;
+}
