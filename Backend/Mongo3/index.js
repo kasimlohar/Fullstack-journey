@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const Chat = require("./models/chat.js");
 const methodOverride = require("method-override");
+const ExpressError = require("./ExpressError.js");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -22,12 +23,12 @@ async function main() {
 }
 
 //Index Route
-app.get("/chats", async (req, res) => {
+app.get("/chats", asynWrap(async (req, res) => {
     let chats = await Chat.find();
     // console.log(chats);
     res.render("index.ejs", {chats});
 
-});
+}));
 
 // New Route
 app.get("/chats/new", (req, res) => {
@@ -35,7 +36,7 @@ app.get("/chats/new", (req, res) => {
 });
 
 // Create Route
-app.post("/chats", async (req, res) => {
+app.post("/chats", asynWrap(async (req, res) => {
     let {from, to, message} = req.body;
     let newChat = new Chat({
         from,
@@ -53,37 +54,70 @@ app.post("/chats", async (req, res) => {
             console.log(err);
         });
         res.redirect("/chats");
-});
+}));
 
-// EDIT Route
-app.get("/chats/:id/edit", async (req, res) => {
+function asynWrap(fn) {
+    return function(req, res, next) {
+        fn(req, res, next).catch((err) => next(err));
+    };
+}
+
+//NEW - SHOW route
+app.get("/chats/:id", asynWrap(async (req, res, next) => {
     let {id} = req.params;
     let chat = await Chat.findById(id);
-    res.render("edit.ejs", {chat});
-});
+    if(!chat) {
+        next( new ExpressError("Chat not found", 404))
+    }
+    res.render("show.ejs", {chat});
+
+}));
+
+// EDIT Route
+app.get("/chats/:id/edit", asynWrap(async (req, res) => {
+    try {
+        let {id} = req.params;
+        let chat = await Chat.findById(id);
+        res.render("edit.ejs", {chat});
+    } catch(err) {
+        next(err);
+    }
+}));
 
 
 
 // UPDATE Route
-app.put("/chats/:id", async (req, res) => {
+app.put("/chats/:id", asynWrap(async (req, res) => {
     let {id} = req.params;
     let {message: newMsg} = req.body;
     let updatedChat = await Chat.findByIdAndUpdate(id, {message: newMsg}, {runValidators: true, new: true});
     console.log(updatedChat);
     res.redirect("/chats");
-});
+}));
 
 //Delete Route
-app.delete("/chats/:id", async (req, res) => {
+app.delete("/chats/:id", asynWrap(async (req, res) => {
+
     let {id} = req.params;
     await Chat.findByIdAndDelete(id);
     res.redirect("/chats");
-});
+}));
 
 
 app.get("/", (req, res) => {
     res.send("Root is working");
 });
+
+app.use((err, req, res, next) => {
+    console.log(err.name);
+    next(err);
+});
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+    let {statusCode = 500, message = "Something went wrong"} = err;
+    res.status(statusCode).send(message);
+})
 
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
