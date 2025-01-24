@@ -1,71 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wanderlust</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wanderlust</title>
 </head>
 <body>
-    <% layout('layouts/boilerplate') %>
+  <% layout('layouts/boilerplate') %>
 
-    <div class="container">
-      <h1 class="text-center mb-4">Edit Activity</h1>
-      <form action="/activities/<%= activity._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
-        <div class="mb-3">
-          <label for="name" class="form-label">Activity Name</label>
-          <input type="text" class="form-control" id="name" name="name" value="<%= activity.name %>" required>
+  <div class="container">
+    <h1 class="text-center mb-4">Edit Activity</h1>
+    <form action="/activities/<%= activity._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="name" class="form-label">Activity Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= activity.name %>" required>
+        <div class="invalid-feedback">
+          Please provide a valid activity name.
         </div>
-    
-        <div class="mb-3">
-          <label for="description" class="form-label">Description</label>
-          <textarea class="form-control" id="description" name="description" required><%= activity.description %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" required><%= activity.description %></textarea>
+        <div class="invalid-feedback">
+          Please provide a description.
         </div>
-    
-        <div class="mb-3">
-          <label for="images" class="form-label">Image URL</label>
-          <input type="text" class="form-control" id="images" name="images[0][url]" value="<%= activity.images[0].url %>" required>
-          <input type="hidden" name="images[0][filename]" value="<%= activity.images[0].filename %>">
+      </div>
+
+      <div class="mb-3">
+        <label for="images" class="form-label">Image URL</label>
+        <input type="text" class="form-control" id="images" name="images[0][url]" value="<%= activity.images[0].url %>">
+        <input type="hidden" name="images[0][filename]" value="<%= activity.images[0].filename %>">
+      </div>
+
+      <div class="mb-3">
+        <label for="difficulty" class="form-label">Difficulty</label>
+        <select class="form-control" id="difficulty" name="difficulty" required>
+          <option value="Easy" <%= activity.difficulty === 'Easy' ? 'selected' : '' %>>Easy</option>
+          <option value="Medium" <%= activity.difficulty === 'Medium' ? 'selected' : '' %>>Medium</option>
+          <option value="Hard" <%= activity.difficulty === 'Hard' ? 'selected' : '' %>>Hard</option>
+          <option value="Extreme" <%= activity.difficulty === 'Extreme' ? 'selected' : '' %>>Extreme</option>
+        </select>
+        <div class="invalid-feedback">
+          Please select a difficulty level.
         </div>
-    
-        <div class="mb-3">
-          <label for="difficulty" class="form-label">Difficulty</label>
-          <select class="form-control" id="difficulty" name="difficulty" required>
-            <option value="Easy" <%= activity.difficulty === 'Easy' ? 'selected' : '' %>>Easy</option>
-            <option value="Medium" <%= activity.difficulty === 'Medium' ? 'selected' : '' %>>Medium</option>
-            <option value="Hard" <%= activity.difficulty === 'Hard' ? 'selected' : '' %>>Hard</option>
-            <option value="Extreme" <%= activity.difficulty === 'Extreme' ? 'selected' : '' %>>Extreme</option>
-          </select>
-        </div>
-    
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="price" name="price" value="<%= activity.price %>" min="0" required>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="duration" class="form-label">Duration</label>
-            <input type="text" class="form-control" id="duration" name="duration" value="<%= activity.duration %>" required>
-          </div>
-        </div>
-    
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="location" class="form-label">Location</label>
-            <input type="text" class="form-control" id="location" name="location" value="<%= activity.location %>" required>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="country" class="form-label">Country</label>
-            <input type="text" class="form-control" id="country" name="country" value="<%= activity.country %>" required>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" id="price" name="price" value="<%= activity.price %>" min="0" required>
+          <div class="invalid-feedback">
+            Please provide a valid price.
           </div>
         </div>
-    
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" <%= activity.guideRequired ? 'checked' : '' %>>
-          <label class="form-check-label" for="guideRequired">Guide Required</label>
+        <div class="col-md-6 mb-3">
+          <label for="duration" class="form-label">Duration</label>
+          <input type="text" class="form-control" id="duration" name="duration" value="<%= activity.duration %>" required>
+          <div class="invalid-feedback">
+            Please provide a duration.
+          </div>
         </div>
-    
-        <button type="submit" class="btn btn-success">Update Activity</button>
-      </form>
-    </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input type="text" class="form-control" id="location" name="location" value="<%= activity.location %>" required>
+          <div class="invalid-feedback">
+            Please provide a location.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" class="form-control" id="country" name="country" value="<%= activity.country %>" required>
+          <div class="invalid-feedback">
+            Please provide a country.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" <%= activity.guideRequired ? 'checked' : '' %>>
+        <label class="form-check-label" for="guideRequired">Guide Required</label>
+      </div>
+
+      <button type="submit" class="btn btn-success">Update Activity</button>
+    </form>
+  </div>
 </body>
 </html>

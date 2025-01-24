@@ -14,16 +14,23 @@
     <div class="mb-3">
       <label for="name" class="form-label">Activity Name</label>
       <input type="text" class="form-control" id="name" name="name" required>
+      <div class = "valid-feedback">Look good!</div>
+      <div class="invalid-feedback">
+        Please enter a valid activity name.
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="description" class="form-label">Description</label>
       <textarea class="form-control" id="description" name="description" required></textarea>
+      <div class="invalid-feedback">
+        Please enter a short description.
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="images" class="form-label">Image URL</label>
-      <input type="text" class="form-control" id="images" name="images[0][url]" required>
+      <input type="text" class="form-control" id="images" name="images[0][url]" >
       <input type="hidden" name="images[0][filename]" value="default.jpg">
     </div>
 
@@ -36,16 +43,25 @@
         <option value="Hard">Hard</option>
         <option value="Extreme">Extreme</option>
       </select>
+      <div class="invalid-feedback">
+        Please select a valid difficulty.
+      </div>
     </div>
 
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="price" class="form-label">Price</label>
         <input type="number" class="form-control" id="price" name="price" min="0" required>
+        <div class="invalid-feedback">
+          Price should be valid.
+        </div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="duration" class="form-label">Duration</label>
         <input type="text" class="form-control" id="duration" name="duration" required>
+        <div class="invalid-feedback">
+          Duration should be valid..
+        </div>
       </div>
     </div>
 
@@ -53,10 +69,16 @@
       <div class="col-md-6 mb-3">
         <label for="location" class="form-label">Location</label>
         <input type="text" class="form-control" id="location" name="location" required>
+        <div class="invalid-feedback">
+          Location should be valid.
+        </div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="country" class="form-label">Country</label>
         <input type="text" class="form-control" id="country" name="country" required>
+        <div class="invalid-feedback">
+          Country name should be valid.
+        </div>
       </div>
     </div>
 
