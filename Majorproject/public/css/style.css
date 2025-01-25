@@ -4,63 +4,118 @@ body {
     margin: 0;
     padding: 0;
     background-color: #fcf8f8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+}
+
+/* Main content wrapper */
+main {
+    flex: 1; /* Allows the main content to grow and push the footer to the bottom */
 }
 
 /* Card styles */
 .card {
     transition: transform 0.3s ease;
     margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .card-img-top {
     height: 200px;
     object-fit: cover;
+    border-radius: 8px 8px 0 0;
 }
 
 /* Activity details */
 .activity-price {
     font-size: 1.2rem;
     color: #28a745;
+    font-weight: bold;
 }
 
 .activity-location {
     color: #6c757d;
+    font-size: 0.9rem;
 }
 
 /* Badges */
 .badge {
     margin-right: 5px;
-}
-
-.f-info-links {
-    text-decoration: none;
-    color: #222222;
-    transition: color 0.3s ease;
-}
-
-.f-info-links:hover {
-    color: #0d6efd !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
 }
 
 /* Footer Styles */
 .footer {
-    margin-top: 2rem;
+    background-color: #343a40; /* Dark background for the footer */
+    color: #ffffff; /* White text color */
+    padding: 2rem 0;
+    margin-top: auto; /* Ensures the footer sticks to the bottom */
     width: 100%;
 }
 
-.footer i {
-    margin-right: 0.5rem;
+.footer h5 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.footer p {
+    color: #adb5bd; /* Light gray text for paragraphs */
+    margin-bottom: 0.5rem;
+}
+
+.footer ul {
+    list-style: none;
+    padding-left: 0;
 }
 
 .footer ul li {
     margin-bottom: 0.5rem;
+    color: #adb5bd; /* Light gray text for list items */
+}
+
+.footer ul li i {
+    margin-right: 0.5rem;
+    color: #ffffff; /* White icons */
+}
+
+.footer a {
+    color: #ffffff; /* White text for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #0d6efd !important; /* Blue color on hover */
+}
+
+.footer .social-links a {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: #ffffff; /* White icons for social links */
+}
+
+.footer .social-links a:hover {
+    color: #0d6efd !important; /* Blue color on hover */
 }
 
 .footer hr {
     margin: 1.5rem 0;
     opacity: 0.2;
+    border-color: #6c757d; /* Light gray border color */
+}
+
+.footer .copyright {
+    text-align: center;
+    color: #adb5bd; /* Light gray text for copyright */
+    margin-top: 1rem;
 }

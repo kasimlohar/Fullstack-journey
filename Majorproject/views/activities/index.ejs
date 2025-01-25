@@ -1,29 +1,45 @@
+<!-- Include the layout template -->
 <% layout('layouts/boilerplate') %>
 
+<!-- Page Heading -->
 <h1 class="text-center mb-4">All Activities</h1>
-<div class="container">
+
+<!-- Activities Container -->
+<div class="container justify-content-center align-items-center">
   <div class="row">
+    <!-- Loop through all activities and display them -->
     <% allActivities.forEach(activity => { %>
-      <div class="col-lg-4 col-md-6 mb-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <!-- Activity Card -->
         <div class="card">
-          <img src="<%= activity.images[0].url %>" class="card-img-top" alt="<%= activity.name %>">
+          <!-- Activity Image -->
+          <img src="<%= activity.images && activity.images[0] ? activity.images[0].url : 'default-image-url.jpg' %>" class="card-img-top" alt="<%= activity.name %>">
+
+          <!-- Card Body -->
           <div class="card-body">
+            <!-- Activity Name -->
             <h5 class="card-title"><%= activity.name %></h5>
-            <p class="card-text text-truncate"><%= activity.description %></p>
+
+            <!-- Activity Description (Truncated) -->
+            <p class="card-text truncate-text"><%= activity.description %></p>
+
+            <!-- Difficulty and Price -->
             <div class="d-flex justify-content-between align-items-center">
               <span class="badge bg-info"><%= activity.difficulty %></span>
               <span class="activity-price">$<%= activity.price %></span>
             </div>
+
+            <!-- Location and Country -->
             <p class="activity-location mt-2">
               <i class="fas fa-map-marker-alt"></i> 
               <%= activity.location %>, <%= activity.country %>
             </p>
-            <a href="/activities/<%= activity._id %>" class="btn btn-primary">View Details</a>
+
+            <!-- View Details Button -->
+            <a href="/activities/<%= activity._id %>" class="btn btn-primary" aria-label="View details of <%= activity.name %>">View Details</a>
           </div>
         </div>
       </div>
     <% }) %>
   </div>
 </div>
-
-

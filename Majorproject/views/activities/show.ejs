@@ -1,13 +1,25 @@
+<!-- Include the layout template -->
 <% layout('layouts/boilerplate') %>
 
+<!-- Main Container -->
 <div class="container justify-content-center align-items-center">
-  <div class="row">
+  <div class="row justify-content-center align-items-center">
+    <!-- Activity Details Section -->
     <div class="col-md-8">
+      <!-- Activity Card -->
       <div class="card mb-3">
-        <img src="<%= activity.images[0].url %>" class="card-img-top" alt="<%= activity.name %>">
+        <!-- Activity Image -->
+        <img src="<%= activity.images && activity.images[0] ? activity.images[0].url : 'default-image-url.jpg' %>" class="card-img-top" alt="<%= activity.name %>">
+
+        <!-- Card Body -->
         <div class="card-body">
+          <!-- Activity Name -->
           <h2 class="card-title"><%= activity.name %></h2>
+
+          <!-- Activity Description -->
           <p class="card-text"><%= activity.description %></p>
+
+          <!-- Activity Details List -->
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Location:</strong> <%= activity.location %>, <%= activity.country %></li>
             <li class="list-group-item"><strong>Difficulty:</strong> <%= activity.difficulty %></li>
@@ -17,52 +29,71 @@
           </ul>
         </div>
       </div>
+
+      <!-- Edit and Delete Buttons -->
       <div class="d-flex">
-        <a href="/activities/<%= activity._id %>/edit" class="btn btn-info me-2 ">Edit</a>
+        <a href="/activities/<%= activity._id %>/edit" class="btn btn-info me-2">Edit</a>
         <form action="/activities/<%= activity._id %>?_method=DELETE" method="POST">
           <button class="btn btn-danger">Delete</button>
         </form>
-         
       </div>
     </div>
-    <div class="col-md-8" >
-      <hr/>
+
+    <!-- Reviews Section -->
+    <div class="col-md-8">
+      <hr />
+
+      <!-- Leave a Review Form -->
       <h4>Leave a Review</h4>
-      <form action="/activities/<%= activity.id%>/reviews" method="POST" novalidate class="needs-validation">
+      <form action="/activities/<%= activity.id %>/reviews" method="POST" novalidate class="needs-validation">
+        <!-- Rating Input -->
         <div class="mb-3 mt-3">
           <label for="rating" class="form-label form-range">Rating</label>
-          <input type="range" min="1" max="5" id="rating" name="review[rating]" >
+          <input type="range" min="1" max="5" id="rating" name="review[rating]" required>
+          <div class="invalid-feedback">Please select a rating between 1 and 5.</div>
         </div>
+
+        <!-- Comment Input -->
         <div class="mb-3 mt-3">
           <label for="comment" class="form-label">Comments</label>
           <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
           <div class="invalid-feedback">Please add some comments for reviews</div>
         </div>
+
+        <!-- Submit Button -->
         <div class="mb-3 mt-3">
           <button class="btn btn-outline-dark">Submit</button>
         </div>
       </form>
 
-      <hr>
+      <hr />
 
+      <!-- All Reviews Section -->
       <p><b>All Reviews</b></p>
       <div class="row">
-        <% for(review of activity.reviews) { %>
-          <div class="card col-5 ms-3 mb-3">
-            <div class="card-body">
-              <h5 class="card-title">Kasim Lohar</h5>
-              <p class="card-text"><%= review.comment%></p>
-              <p class="card-text"><%= review.rating %> stars</p>
+        <!-- Loop through reviews and display them -->
+        <% for (review of activity.reviews) { %>
+          <div class="col-md-6 col-lg-4 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <!-- Reviewer Name -->
+                <h5 class="card-title"><%= review.reviewer || 'Anonymous' %></h5>
+
+                <!-- Review Comment -->
+                <p class="card-text"><%= review.comment %></p>
+
+                <!-- Review Rating -->
+                <p class="card-text"><%= review.rating %> stars</p>
+              </div>
+
+              <!-- Delete Review Form -->
+              <form class="mb-3 ms-3" method="POST" action="/activities/<%= activity._id %>/reviews/<%= review._id %>?_method=DELETE">
+                <button class="btn btn-sm btn-dark">Delete</button>
+              </form>
             </div>
-            <form  class="mb-3" method="POST" action="/activities/<%= activity._id %>/reviews/<%= review._id %>?_method=DELETE">
-              <button class="btn btn-sm btn-dark ">Delete</button>
-            </form>
           </div>
         <% } %>
       </div>
     </div>
   </div>
 </div>
-
-
-

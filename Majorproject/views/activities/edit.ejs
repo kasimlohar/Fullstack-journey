@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>wanderlust</title>
+  <title>Wanderlust - Edit Activity</title>
 </head>
 <body>
+  <!-- Include the layout template -->
   <% layout('layouts/boilerplate') %>
 
   <div class="container">
+    <!-- Page Heading -->
     <h1 class="text-center mb-4">Edit Activity</h1>
+
+    <!-- Edit Activity Form -->
     <form action="/activities/<%= activity._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+      <!-- Activity Name Field -->
       <div class="mb-3">
         <label for="name" class="form-label">Activity Name</label>
         <input type="text" class="form-control" id="name" name="name" value="<%= activity.name %>" required>
@@ -19,6 +24,7 @@
         </div>
       </div>
 
+      <!-- Description Field -->
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control" id="description" name="description" required><%= activity.description %></textarea>
@@ -27,12 +33,14 @@
         </div>
       </div>
 
+      <!-- Image URL Field -->
       <div class="mb-3">
         <label for="images" class="form-label">Image URL</label>
-        <input type="text" class="form-control" id="images" name="images[0][url]" value="<%= activity.images[0].url %>">
-        <input type="hidden" name="images[0][filename]" value="<%= activity.images[0].filename %>">
+        <input type="text" class="form-control" id="images" name="images[0][url]" value="<%= activity.images && activity.images[0] ? activity.images[0].url : '' %>">
+        <input type="hidden" name="images[0][filename]" value="<%= activity.images && activity.images[0] ? activity.images[0].filename : '' %>">
       </div>
 
+      <!-- Difficulty Field -->
       <div class="mb-3">
         <label for="difficulty" class="form-label">Difficulty</label>
         <select class="form-control" id="difficulty" name="difficulty" required>
@@ -46,6 +54,7 @@
         </div>
       </div>
 
+      <!-- Price and Duration Fields -->
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="price" class="form-label">Price</label>
@@ -63,6 +72,7 @@
         </div>
       </div>
 
+      <!-- Location and Country Fields -->
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="location" class="form-label">Location</label>
@@ -80,11 +90,16 @@
         </div>
       </div>
 
+      <!-- Guide Required Checkbox
       <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" <%= activity.guideRequired ? 'checked' : '' %>>
+        <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" <%= activity.guideRequired ? 'checked' : '' %> required>
         <label class="form-check-label" for="guideRequired">Guide Required</label>
-      </div>
+        <div class="invalid-feedback">
+          Please specify if a guide is required.
+        </div>
+      </div> -->
 
+      <!-- Submit Button -->
       <button type="submit" class="btn btn-success">Update Activity</button>
     </form>
   </div>

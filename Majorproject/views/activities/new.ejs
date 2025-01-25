@@ -3,92 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
+    <title>Wanderlust - Add New Activity</title>
 </head>
 <body>
-<% layout('layouts/boilerplate') %>
+  <!-- Include the layout template -->
+  <% layout('layouts/boilerplate') %>
 
-<div class="container">
-  <h1 class="text-center mb-4">Add New Activity</h1>
-  <form action="/activities" method="POST" class="needs-validation" novalidate>
-    <div class="mb-3">
-      <label for="name" class="form-label">Activity Name</label>
-      <input type="text" class="form-control" id="name" name="name" required>
-      <div class = "valid-feedback">Look good!</div>
-      <div class="invalid-feedback">
-        Please enter a valid activity name.
-      </div>
-    </div>
+  <!-- Main Container -->
+  <div class="container justify-content-center align-items-center">
+    <!-- Page Heading -->
+    <h1 class="text-center mb-4">Add New Activity</h1>
 
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea class="form-control" id="description" name="description" required></textarea>
-      <div class="invalid-feedback">
-        Please enter a short description.
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <label for="images" class="form-label">Image URL</label>
-      <input type="text" class="form-control" id="images" name="images[0][url]" >
-      <input type="hidden" name="images[0][filename]" value="default.jpg">
-    </div>
-
-    <div class="mb-3">
-      <label for="difficulty" class="form-label">Difficulty</label>
-      <select class="form-control" id="difficulty" name="difficulty" required>
-        <option value="">Select Difficulty</option>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-        <option value="Extreme">Extreme</option>
-      </select>
-      <div class="invalid-feedback">
-        Please select a valid difficulty.
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" class="form-control" id="price" name="price" min="0" required>
+    <!-- Add Activity Form -->
+    <form action="/activities" method="POST" class="needs-validation" novalidate>
+      <!-- Activity Name Field -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Activity Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+        <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">
-          Price should be valid.
+          Please enter a valid activity name.
         </div>
       </div>
-      <div class="col-md-6 mb-3">
-        <label for="duration" class="form-label">Duration</label>
-        <input type="text" class="form-control" id="duration" name="duration" required>
+
+      <!-- Description Field -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" required></textarea>
         <div class="invalid-feedback">
-          Duration should be valid..
+          Please enter a short description.
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <label for="location" class="form-label">Location</label>
-        <input type="text" class="form-control" id="location" name="location" required>
+      <!-- Image URL Field -->
+      <div class="mb-3">
+        <label for="images" class="form-label">Image URL</label>
+        <input type="text" class="form-control" id="images" name="images[0][url]">
+        <input type="hidden" name="images[0][filename]" value="default.jpg">
+      </div>
+
+      <!-- Difficulty Field -->
+      <div class="mb-3">
+        <label for="difficulty" class="form-label">Difficulty</label>
+        <select class="form-control" id="difficulty" name="difficulty" required>
+          <option value="">Select Difficulty</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+          <option value="Extreme">Extreme</option>
+        </select>
         <div class="invalid-feedback">
-          Location should be valid.
+          Please select a valid difficulty.
         </div>
       </div>
-      <div class="col-md-6 mb-3">
-        <label for="country" class="form-label">Country</label>
-        <input type="text" class="form-control" id="country" name="country" required>
-        <div class="invalid-feedback">
-          Country name should be valid.
+
+      <!-- Price and Duration Fields -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" id="price" name="price" min="0" required>
+          <div class="invalid-feedback">
+            Price should be valid.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="duration" class="form-label">Duration</label>
+          <input type="text" class="form-control" id="duration" name="duration" required>
+          <div class="invalid-feedback">
+            Duration should be valid.
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired">
-      <label class="form-check-label" for="guideRequired">Guide Required</label>
-    </div>
+      <!-- Location and Country Fields -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input type="text" class="form-control" id="location" name="location" required>
+          <div class="invalid-feedback">
+            Location should be valid.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" class="form-control" id="country" name="country" required>
+          <div class="invalid-feedback">
+            Country name should be valid.
+          </div>
+        </div>
+      </div>
 
-    <button type="submit" class="btn btn-success">Add Activity</button>
-  </form>
-</div>
+      <!-- Guide Required Checkbox -->
+      <!-- <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" value="false">
+        <label class="form-check-label" for="guideRequired">Guide Required</label>
+      </div> -->
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-success">Add Activity</button>
+    </form>
+  </div>
 </body>
 </html>
