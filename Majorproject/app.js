@@ -7,7 +7,9 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const {activitySchema} = require("./schema.js");
+const {activitySchema, reviewSchema} = require("./schema.js");
+const Review = require("./models/review.js");
+const { warn } = require("console");
  
 // MongoDB connection
 async function main() {
@@ -48,6 +50,18 @@ const validateActivity = (req, res, next) => {
   }
 }
 
+
+const validateReview = (req, res, next) => {
+  let {error} = reviewSchema.validate(req.body); 
+  if(error) { 
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(errMsg, 400)
+  } else {
+    next()
+  }
+}
+
+
 // Index route for displaying all activities
 app.get("/activities", async (req, res) => {
   const allActivities = await Activity.find({});
@@ -69,7 +83,7 @@ app.get("/activities/new", (req, res) => {
 // Show route for displaying a specific activity
 app.get("/activities/:id", wrapAsync(async (req, res) => {
   const { id } = req.params;
-  const activity = await Activity.findById(id);
+  const activity = await Activity.findById(id).populate("reviews");
   res.render("./activities/show.ejs", { activity });
   // try {
   //   const activity = await Activity.findById(id);
@@ -139,6 +153,29 @@ app.delete("/activities/:id", wrapAsync(async (req, res) => {
   //   res.status(400).send("Failed to delete activity.");
   // }
 }));
+
+//Reviews 
+//POST route
+app.post("/activities/:id/reviews", validateReview, wrapAsync(async(req, res) => {
+  let activity = await Activity.findById(req.params.id);
+  let newReview = new Review(req.body.review)
+
+  activity.reviews.push(newReview)
+  await newReview.save()
+  await activity.save()
+  res.redirect(`/activities/${activity._id}`)
+
+}))
+
+//Delete Review Route
+
+app.delete("/activities/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+  let { id, reviewId } = req.params;
+  await Activity.findByIdAndUpdate(id, {$pull: {reviews: reviewId}})
+  await Review.findByIdAndDelete(reviewId);
+
+  res.redirect(`/activities/${id}`)
+}))
 
 // Test route to check database contents
 app.get("/test", wrapAsync(async (req, res) => {

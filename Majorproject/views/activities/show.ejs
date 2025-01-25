@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container">
+<div class="container justify-content-center align-items-center">
   <div class="row">
     <div class="col-md-8">
       <div class="card mb-3">
@@ -18,12 +18,51 @@
         </div>
       </div>
       <div class="d-flex">
-        <a href="/activities/<%= activity._id %>/edit" class="btn btn-info me-2">Edit</a>
+        <a href="/activities/<%= activity._id %>/edit" class="btn btn-info me-2 ">Edit</a>
         <form action="/activities/<%= activity._id %>?_method=DELETE" method="POST">
           <button class="btn btn-danger">Delete</button>
         </form>
+         
+      </div>
+    </div>
+    <div class="col-md-8" >
+      <hr/>
+      <h4>Leave a Review</h4>
+      <form action="/activities/<%= activity.id%>/reviews" method="POST" novalidate class="needs-validation">
+        <div class="mb-3 mt-3">
+          <label for="rating" class="form-label form-range">Rating</label>
+          <input type="range" min="1" max="5" id="rating" name="review[rating]" >
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="comment" class="form-label">Comments</label>
+          <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+          <div class="invalid-feedback">Please add some comments for reviews</div>
+        </div>
+        <div class="mb-3 mt-3">
+          <button class="btn btn-outline-dark">Submit</button>
+        </div>
+      </form>
+
+      <hr>
+
+      <p><b>All Reviews</b></p>
+      <div class="row">
+        <% for(review of activity.reviews) { %>
+          <div class="card col-5 ms-3 mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Kasim Lohar</h5>
+              <p class="card-text"><%= review.comment%></p>
+              <p class="card-text"><%= review.rating %> stars</p>
+            </div>
+            <form  class="mb-3" method="POST" action="/activities/<%= activity._id %>/reviews/<%= review._id %>?_method=DELETE">
+              <button class="btn btn-sm btn-dark ">Delete</button>
+            </form>
+          </div>
+        <% } %>
       </div>
     </div>
   </div>
 </div>
+
+
 

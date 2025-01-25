@@ -1,5 +1,6 @@
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const Review = require("./review.js")
 
 // const listingSchema = new Schema({
 //     title: {
@@ -23,7 +24,7 @@
 // module.exports = Listing;
 
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 // Define the schema for an Activity
 const activitySchema = new mongoose.Schema({
@@ -74,7 +75,19 @@ const activitySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,  // Automatically sets the creation date to current date
   },
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review", // Reference to the Review model
+    },
+  ],
 });
+
+activitySchema.post("findOneAndDelete", async (activity) =>{
+  if(activity) {
+    await Review.deleteMany({reviews : {$in: activity.reviews}})
+  }
+})
 
 // Create the model from the schema
 const Activity = mongoose.model('Activity', activitySchema);
