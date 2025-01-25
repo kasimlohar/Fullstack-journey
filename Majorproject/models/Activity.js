@@ -42,7 +42,7 @@ const activitySchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    match: /^\d+\s*(hour|day|week|month)s?$/i, // Matches formats like "2 hours", "1 day", etc.
+    // match: /^\d+\s*(hour|day|week|month)s?$/i, // Matches formats like "2 hours", "1 day", etc.
   },
   // guideRequired: {
   //   type: Boolean,
