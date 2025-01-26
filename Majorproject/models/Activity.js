@@ -58,6 +58,10 @@ const activitySchema = new mongoose.Schema({
       ref: "Review", // References the Review model for populating reviews
     },
   ],
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 // Middleware to delete associated reviews when an activity is deleted

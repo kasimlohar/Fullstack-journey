@@ -13,7 +13,7 @@ async function initDB() {
         // Delete existing activities
         const deleted = await Activity.deleteMany({});
         console.log(`Deleted ${deleted.deletedCount} activities`);
-
+        
         // Insert new activities
         const inserted = await Activity.insertMany(activities);
         console.log(`Added ${inserted.length} new activities`);
