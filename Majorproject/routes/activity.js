@@ -31,6 +31,10 @@ router.get("/new", (req, res) => {
 router.get("/:id", wrapAsync(async (req, res) => {
     const { id } = req.params;
     const activity = await Activity.findById(id).populate("reviews");
+    if(!activity) {
+        req.flash("error", "Activity you request to does not exist!")
+        res.redirect("/activities")
+    }
     res.render("./activities/show.ejs", { activity });
 }));
 
@@ -38,6 +42,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 router.post("/", validateActivity, wrapAsync(async (req, res, next) => {
     const newActivity = new Activity(req.body);
     await newActivity.save();
+    req.flash("success", "New Activity Created");
     res.redirect(`/activities/${newActivity._id}`);
 }));
 
@@ -45,6 +50,10 @@ router.post("/", validateActivity, wrapAsync(async (req, res, next) => {
 router.get("/:id/edit", wrapAsync(async (req, res) => {
     const { id } = req.params;
     const activity = await Activity.findById(id);
+    if(!activity) {
+        req.flash("error", "Activity you request to does not exist!")
+        res.redirect("/activities")
+    }
     res.render("./activities/edit.ejs", { activity });
 }));
 
@@ -55,6 +64,7 @@ router.put("/:id", validateActivity, wrapAsync(async (req, res) => {
     }
     const { id } = req.params;
     const activity = await Activity.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+    req.flash("success", "Activity Updated");
     res.redirect(`/activities/${activity._id}`);
 }));
 
@@ -62,6 +72,7 @@ router.put("/:id", validateActivity, wrapAsync(async (req, res) => {
 router.delete("/:id", wrapAsync(async (req, res) => {
     const { id } = req.params;
     await Activity.findByIdAndDelete(id);
+    req.flash("success", "Activity Deleted");
     res.redirect("/activities");
 }));
 
