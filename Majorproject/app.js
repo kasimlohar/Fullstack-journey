@@ -10,14 +10,14 @@ const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session")
 const flash = require("connect-flash")
 const passport = require("passport");
-const localStrategy = require("passport-local");
+const LocalStrategy = require("passport-local");
 const User = require("./models/user.js")
 
 
 
-const activities = require("./routes/activity.js")
-const reviews = require("./routes/review.js")
-
+const activityRouter = require("./routes/activity.js")
+const reviewRouter = require("./routes/review.js")
+const userRouter = require("./routes/user.js")
 
 // Environment variables
 const port = process.env.PORT || 8080;
@@ -66,6 +66,12 @@ app.get("/", (req, res) => {
 app.use(session(sessionOptions))
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req, res, next) => {
@@ -75,10 +81,22 @@ app.use((req, res, next) => {
 
 })
 
+
+
+// app.get("/demouser", async (req, res) => {
+//     let fakeUser = new User({
+//         email: "student@gmail.com",
+//         username: "kasim-lohar",
+//     });
+
+//     let registerdUser = await User.register( fakeUser, "helloworld");
+//     res.send(registerdUser)
+// })
  
 
-app.use("/activities", activities)
-app.use("/activities/:id/reviews", reviews)
+app.use("/activities", activityRouter);
+app.use("/activities/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 
 // Catch-all route for 404 errors
