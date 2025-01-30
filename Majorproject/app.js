@@ -58,10 +58,10 @@ const sessionOptions = {
     },
 }
 
-// Root route
-app.get("/", (req, res) => {
-    res.send("Welcome to the Wanderlust App");
-});
+// // Root route
+// app.get("/", (req, res) => {
+//     res.send("Welcome to the Wanderlust App");
+// });
 
 
 app.use(session(sessionOptions))
