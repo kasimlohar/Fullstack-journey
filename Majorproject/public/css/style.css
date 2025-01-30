@@ -119,3 +119,9 @@ main {
     color: #adb5bd; /* Light gray text for copyright */
     margin-top: 1rem;
 }
+
+/* map */
+#map {
+    height: 400px;
+    width: 80vh;
+}

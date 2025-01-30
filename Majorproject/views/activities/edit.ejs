@@ -14,7 +14,7 @@
     <h1 class="text-center mb-4">Edit Activity</h1>
 
     <!-- Edit Activity Form -->
-    <form action="/activities/<%= activity._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+    <form action="/activities/<%= activity._id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
       <!-- Activity Name Field -->
       <div class="mb-3">
         <label for="name" class="form-label">Activity Name</label>
@@ -33,11 +33,15 @@
         </div>
       </div>
 
+      <div class="mb-3">
+        Original Activity Image
+        <img src="<%= originalImageUrl %>" alt="">
+      </div>
+
       <!-- Image URL Field -->
       <div class="mb-3">
-        <label for="images" class="form-label">Image URL</label>
-        <input type="text" class="form-control" id="images" name="images[0][url]" value="<%= activity.images && activity.images[0] ? activity.images[0].url : '' %>">
-        <input type="hidden" name="images[0][filename]" value="<%= activity.images && activity.images[0] ? activity.images[0].filename : '' %>">
+        <label for="image" class="form-label">Upload New Image</label>
+        <input type="file" class="form-control" id="image" name="activity[image]">
       </div>
 
       <!-- Difficulty Field -->

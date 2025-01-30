@@ -1,5 +1,9 @@
 <!-- Include the layout template -->
 <% layout('layouts/boilerplate') %>
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const activity = <%- JSON.stringify(activity) %>;
+</script>
 
 <!-- Main Container -->
 <div class="container justify-content-center align-items-center">
@@ -46,8 +50,8 @@
 
     
     <!-- Reviews Section -->
-    <div class="col-md-8">
-      <hr />
+    <div class="col-md-8"> 
+    <hr>
       <% if(currUser) { %>
       <!-- Leave a Review Form -->
       <form action="/activities/<%= activity.id %>/reviews" method="POST" novalidate class="needs-validation">
@@ -80,13 +84,15 @@
         <div class="mb-3 mt-3">
           <button class="btn btn-outline-dark">Submit</button>
         </div>
+        <hr>
       </form>
       <% } %>
 
 
       <!-- All Reviews Section -->
-      <p><b>All Reviews</b></p>
+       <% if(activity.reviews.length > 0) { %>
       <div class="row">
+        <p><b>All Reviews</b></p>
         <!-- Loop through reviews and display them -->
         <% for (review of activity.reviews) { %>
           <div class="col-md-6 col-lg-4 mb-3">
@@ -110,7 +116,14 @@
             </div>
           </div>
         <% } %>
+      <% } %>
       </div>
-    </div>
+      <div class="col-8 mb-3">
+        <h3>Where you'll be</h3>
+        <div id="map"></div>
+  
+      </div>
+      <script src="/js/map.js"></script>
+    </div>  
   </div>
 </div>

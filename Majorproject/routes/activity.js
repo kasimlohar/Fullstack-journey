@@ -26,7 +26,7 @@ router
 router
 .route("/:id")
 .get( wrapAsync(activitycontroller.showActivity))
-.put( isLoggedIn, isOwner, validateActivity, wrapAsync(activitycontroller.updateActivity))
+.put( isLoggedIn, isOwner, upload.single("activity[image]"), validateActivity, wrapAsync(activitycontroller.updateActivity))
 .delete( isLoggedIn, isOwner, wrapAsync(activitycontroller.destroyActivity));
 
 
