@@ -13,7 +13,11 @@
         <!-- Activity Card -->
         <div class="card">
           <!-- Activity Image -->
-          <img src="<%= activity.images && activity.images[0] ? activity.images[0].url : 'default-image-url.jpg' %>" class="card-img-top" alt="<%= activity.name %>">
+          <img src="<%= activity.image && activity.image.url ? activity.image.url : 'default-image-url.jpg' %>" 
+     class="card-img-top" 
+     alt="<%= activity.name %>">
+
+     
 
           <!-- Card Body -->
           <div class="card-body">

@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != "production") {
+    require("dotenv").config();
+}
+
 // Import required modules
 const express = require("express");
 // Initialize Express app
@@ -12,9 +16,6 @@ const flash = require("connect-flash")
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js")
-
-
-
 const activityRouter = require("./routes/activity.js")
 const reviewRouter = require("./routes/review.js")
 const userRouter = require("./routes/user.js")
@@ -49,7 +50,7 @@ app.engine("ejs", ejsMate);
 const sessionOptions = {
     secret: "mySuperSeceretcode",
     resave: false,
-    saveUninitialize: true,
+    saveUninitialized: true,
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,

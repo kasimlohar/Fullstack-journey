@@ -13,10 +13,10 @@ const activitySchema = new mongoose.Schema({
     required: true,
     trim: true, // Automatically trims whitespace
   },
-  images: [{
-    filename: { type: String, required: false }, // Image filename is optional
-    url: { type: String, required: false },      // Image URL is optional
-  }],
+  image: {
+    filename: String, // Image filename is optional
+    url: String,      // Image URL is optional
+  },
   difficulty: {
     type: String,
     enum: ['Easy', 'Medium', 'Hard', 'Extreme'], // Only allows specific values
