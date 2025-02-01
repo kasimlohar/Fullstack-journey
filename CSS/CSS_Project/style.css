@@ -1,85 +1,562 @@
+/* ===========================
+   Root Variables
+   =========================== */
+   :root {
+    /* Primary Colors */
+    --spotify-green: #1DB954;
+    --spotify-black: #000000;
+
+    /* Secondary Colors */
+    --dark-gray: #121212;
+    --light-gray: #282828;
+    --white: #FFFFFF;
+    --off-white: #B3B3B3;
+
+    /* Accent Colors */
+    --highlight-green: #1ED760;
+    --error-red: #E91429;
+    --success-green: #2EBD59;
+
+    /* Custom Colors */
+    --search-black: #1F1F1F;
+    --profile: #B49BC8;
+    --scroll-bar: #5A5A5A;
+}
+
+/* ===========================
+   Global Styles
+   =========================== */
 body {
-    font-family: "Montserrat", sans-serif;
-    background-color: black;
-    margin: 0;
-    color: white;
-    overflow: hidden;
-}
-
-.main {
-    display: flex;
+    background-color: var(--spotify-black);
+    color: var(--white);
     height: 100vh;
+    overflow: hidden; /* Prevent overall page scrolling */
 }
 
+.main-container {
+    background-color: var(--spotify-black);
+}
+
+/* ===========================
+   Navigation Bar Styles
+   =========================== */
+.navbar {
+    background-color: var(--spotify-black);
+    padding: 6px;
+    width: 100%;
+    height: 8%;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-brand .fa-spotify {
+    color: var(--spotify-green); /* Spotify green */
+}
+
+/* Home Button */
+.home-btn {
+    height: 50px;
+    width: 50px;
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.home-btn:hover {
+    background-color: var(--search-black);
+}
+
+/* Search Box */
+.search-box {
+    background-color: var(--search-black);
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: var(--off-white);
+    width: 377px;
+    height: 43px;
+    display: flex;
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--white);
+    width: 100%;
+}
+
+.search-box input::placeholder {
+    color: var(--off-white);
+}
+
+/* ===========================
+   Profile Circle
+   =========================== */
+.profile-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--profile);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.profile-circle:hover {
+    background-color: var(--scroll-bar);
+}
+
+/* ===========================
+   Sidebar Styles
+   =========================== */
 .sidebar {
-    background-color: black;
-    width: 340px;
-    border-radius: 1rem; /* 16px */
+    background-color: var(--dark-gray);
+    height: calc(94vh - 100px);
+    padding: 20px;
+    position: fixed;
+    width: 19.3%;
+    overflow-y: auto;
+    margin: 0.4%;
+    border-radius: 8px;
+    scroll-behavior: smooth;
 }
 
-.main-content {
-    background-color: #121212;
-    flex: 1;
-    border-radius: 1rem;
-    overflow: auto;
-
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
 }
 
-.music-player {
-    background-color: black;
+.sidebar::-webkit-scrollbar-track {
+    background: var(--dark-gray);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--scroll-bar);
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--highlight-green);
+}
+
+/* Navigation Links */
+.nav-link {
+    color: var(--off-white);
+    border-radius: 5px;
+    margin: 4px 0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--white);
+    background-color: var(--search-black);
+}
+
+.nav-link.active {
+    color: var(--spotify-green);
+    font-weight: bold;
+}
+
+.nav-link i {
+    font-size: 1.2rem;
+}
+
+/* Playlist Section */
+.playlists h6 {
+    color: var(--white);
+    margin: 0;
+}
+
+.toggle-playlists {
+    background-color: transparent;
+    color: var(--off-white);
+    border: none;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.toggle-playlists:hover {
+    color: var(--white);
+}
+
+.playlist-list .nav-link {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+}
+
+.create-playlist {
+    color: var(--spotify-green);
+}
+
+.create-playlist:hover {
+    color: var(--white);
+}
+
+/* Collapsed Playlist Section */
+.playlist-list.collapsed {
+    display: none;
+}
+
+.toggle-playlists.collapsed i {
+    transform: rotate(180deg);
+}
+
+/* ===========================
+   Main Content Area
+   =========================== */
+.content {
+    overflow-y: auto;
+    border-radius: 8px;
+    height: calc(94vh - 100px);
+    width: 79%;
+    margin: 0.4%;
+    padding: 0;
+    margin-left: 20%;
+    background: linear-gradient(180deg, #101725, #12120f); /* Green to black */
+    color: var(--white);
+}
+
+/* Scroll Buttons (Visible on Hover) */
+.scroll-btn {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--search-black);
+    color: var(--off-white);
+    border-radius: 50%;
+    border: none;
+    width: 35px; /* Fixed size for a perfect circle */
+    height: 35px; /* Fixed size for a perfect circle */
+    padding: 5px 8px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.scroll-btn.left {
+    left: 0;
+    top: 14rem;
+}
+
+.scroll-btn.right {
+    right: 0;
+    top: 14rem;
+}
+
+.scroll-btn:hover {
+    background-color: var(--scroll-bar);
+}
+
+/* Show Scroll Buttons on Hover */
+.recent-played-container:hover .scroll-btn,
+.featured-playlists-container:hover .scroll-btn,
+.favorite-playlists-container:hover .scroll-btn {
+    display: block; /* Visible on hover */
+}
+
+/* Show All Button Styling */
+.show-all-btn {
+    font-size: 0.9rem; /* Smaller font size */
+    padding: 5px 10px; /* Compact padding */
+    border-radius: 20px; /* Rounded corners */
+    background-color: transparent; /* Transparent background */
+    color: var(--white); /* White text */
+    border: 1px solid var(--off-white); /* Subtle border */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.show-all-btn:hover {
+    background-color: var(--spotify-green); /* Spotify green on hover */
+    color: var(--spotify-black); /* Black text on hover */
+    border-color: var(--spotify-green); /* Match border color */
+}
+
+/* Align Headings and Buttons */
+.d-flex.justify-content-between.align-items-center {
+    margin-bottom: 1rem; /* Space below the heading */
+}
+
+h2 {
+    margin: 0; /* Remove default margin */
+}
+
+/* ===========================
+   Scrollbar Styling
+   =========================== */
+/* Optional: Style for scrollbar (Webkit browsers) */
+.content::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 40%;
+    border-radius: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+    background: transparent; /* Background of the scrollbar track */
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: var(--scroll-bar); /* Color of the scrollbar thumb */
+    height: 40px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: var(--highlight-green); /* Color of the thumb on hover */
+}
+
+/* Hide Horizontal Scrollbars */
+.recent-played, .featured-playlists, .favorite-playlists {
+    overflow-x: auto;
+    scrollbar-width: none; /* For Firefox */
+}
+
+.recent-played::-webkit-scrollbar,
+.featured-playlists::-webkit-scrollbar,
+.favorite-playlists::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Webkit browsers */
+}
+
+
+/* ===========================
+   Cards & Playlists
+   =========================== */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.card {
+    background-color: var(--dark-gray);
+    border: none;
+    padding: 15px;
+    border-radius: 16px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative;
+}
+
+.card:hover {
+    background-color: #47495a;
+    transform: scale(1.02);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.card-title {
+    text-align: center;
+    font-size: 18px;
+    color: var(--white);
+}
+
+.card-text {
+    text-align: center;
+    font-size: 14px;
+    color: #80858c;
+}
+
+/* Play Button on Card Hover */
+.play-button {
+    position: absolute;
+    top: 9rem; /* Distance from the bottom */
+    right: 1.5rem; /* Distance from the right */
+    background-color: var(--spotify-green); /* Spotify green */
+    color: var(--white); /* White icon */
+    border: none;
+    border-radius: 50%; /* Make it circular */
+    width: 42px; /* Fixed size for a perfect circle */
+    height: 40px; /* Fixed size for a perfect circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10; /* Ensure it appears above other content */
+    display: none;
+}
+
+.play-button i {
+    font-size: 18px; /* Adjust the size of the play icon */
+}
+
+.card:hover .play-button {
+    display: flex; /* Visible on hover */
+}
+
+/* ===========================
+   Progress Bar
+   =========================== */
+.progress-container {
+    display: flex;
+    align-items: center;
+    margin: -6px 0;
+}
+
+#progress-bar {
+    flex-grow: 1;
+    margin: -1px 10px;
+    cursor: pointer;
+    appearance: none;
+    height: 4px;
+    background: linear-gradient(
+        to right,
+        var(--spotify-green) 0%,
+        var(--spotify-green) var(--progress),
+        var(--light-gray) var(--progress),
+        var(--light-gray) 100%
+    );
+    border-radius: 5px;
+}
+
+#progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: var(--spotify-green);
+    border-radius: 50%;
+    margin-top: -2.5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* For Firefox */
+#progress-bar::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background: var(--spotify-green);
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* ===========================
+   Footer Alignment
+   =========================== */
+   .player-controls {
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 72px;
+
+    height: 9%;
+    background-color: var(--search-black);
+    padding: 10px;
+    z-index: 1000;
+    display: flexbox;
+    align-items: center;
+ /* justify-content: space-between; Align elements properly */
 }
 
-a {
-    text-decoration: none;
-    color: white;
+.player-controls .current-track {
+ display: flex;
+ align-items: center;
+ gap: 10px;
 }
 
-.nav {
-    background-color: #121212;
-    border-radius: 1rem;
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100px;
-    padding: 0.5rem 0.75rem;
-
+.player-controls .current-track img {
+ width: 50px;
+ height: 50px;
+ border-radius: 8px;
 }
 
-.nav-option {
-    height: 2.5rem;
-    opacity: 0.7;
-    padding: 0.5rem 0.75rem;
+.player-controls .controls {
+ display: flex;
+ align-items: center;
+ gap: 15px;
 }
 
-.nav-option:hover {
-    opacity: 1;
+.form-range {
+ width: 100px;
+}
+
+.player-controls img {
+ width: 50px;
+ height: 50px;
+ border-radius: 8px;
+ margin-right: 10px;
+}
+
+.player-buttons .btn {
+ transition: color 0.3s ease;
+}
+
+.player-buttons .btn:hover {
+ color: var(--spotify-green);
 }
 
 
-.nav-option i {
-    font-size: 1.25rem;
-}
 
-.nav-option a {
-    font-size: 1rem;
-    margin-left: 1rem;
-}
+/* ===========================
+   Responsive Design
+   =========================== */
+@media (max-width: 768px) {
+    /* Hide Explore Premium and Install App */
+    .scroll-btn {
+        display: block; /* Always visible on small screens */
+    }
 
-.library {
-    background-color: #121212;
-    border-radius: 1rem;
-}
+    .app-control {
+        display: none;
+    }
 
-.option {
-    display: flex;
-}
+    /* Adjust Navbar Brand Text */
+    .navbar-brand span {
+        display: none; /* Hide "Spotify" text */
+    }
 
-.lib-option img {
-    height: 1.25rem;
-    width: 1.25rem;
+    /* Collapse Navbar Items */
+    .navbar-collapse {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Adjust Search Box Width */
+    .search-box {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Adjust Home Button Position */
+    .home-btn {
+        margin-bottom: 10px;
+    }
+
+    /* Hide Sidebar */
+    .sidebar {
+        display: none;
+    }
+
+    /* Adjust Content Layout */
+    .content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Adjust Player Controls */
+    .player-controls .current-track img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .player-controls h6 {
+        font-size: 0.8rem;
+    }
 }
