@@ -1,32 +1,118 @@
+/**
+ * Data Validation Schemas
+ * Uses Joi for request payload validation
+ * Includes activity and review schemas
+ */
+
 const Joi = require("joi");
+// const { MAX_IMAGE_SIZE } = require("./utils/constants.js");
 
-// Schema for validating activity data
-module.exports.activitySchema = Joi.object({
-  name: Joi.string().required(), // Activity name is required
-  description: Joi.string().required(), // Description is required
-  location: Joi.string().required(), // Location is required
-  duration: Joi.string().required(), // Duration is required
-  price: Joi.number().required().min(0).max(10000), // Price is required and must be between 0 and 10,000
-  difficulty: Joi.string()
-    .valid("Easy", "Medium", "Hard", "Extreme") // Only allow specific values
-    .required(), // Difficulty is required
-  country: Joi.string().required(), // Country is required
-  guideRequired: Joi.boolean(), // Guide required is required
-  images: Joi.array()
-    .items(
+// Common validation patterns
+const COMMON = {
+  STRING: Joi.string().trim(), //removed .escapeHTML()
+  NUMBER: Joi.number(),
+  REQUIRED_STRING: Joi.string().trim().required(), //removed .escapeHTML()
+  REQUIRED_NUMBER: Joi.number().required(),
+};
+
+// Shared validation constants
+const VALIDATION = {
+  ACTIVITY: {
+    PRICE_MIN: 0,
+    PRICE_MAX: 10000,
+    DIFFICULTY: ["Beginner", "Intermediate", "Advanced", "Expert"],
+    DURATION_REGEX: /^\d+\s(hours?|days?|weeks?)$/,
+    IMAGE_LIMIT: 5,
+  },
+  REVIEW: {
+    RATING_MIN: 1,
+    RATING_MAX: 5,
+    COMMENT_MAX: 500,
+  }
+};
+
+
+// Schema definitions
+const SCHEMAS = {
+  ACTIVITY: Joi.object({
+    name: COMMON.REQUIRED_STRING.min(3).max(100)
+      .messages({
+        "string.min": "Activity name must be at least {#limit} characters",
+        "string.max": "Activity name cannot exceed {#limit} characters"
+      }),
+    
+    description: COMMON.REQUIRED_STRING.min(50).max(2000)
+      .messages({
+        "string.min": "Description must be at least {#limit} characters",
+        "string.max": "Description cannot exceed {#limit} characters"
+      }),
+    
+    location: COMMON.REQUIRED_STRING.pattern(/^[a-zA-Z0-9\s,'-]*$/)
+      .message("Invalid location format"),
+    
+    duration: COMMON.REQUIRED_STRING.pattern(VALIDATION.ACTIVITY.DURATION_REGEX)
+      .message("Invalid duration format (e.g., '2 hours' or '3 days')"),
+    
+    price: COMMON.REQUIRED_NUMBER.min(VALIDATION.ACTIVITY.PRICE_MIN)
+      .max(VALIDATION.ACTIVITY.PRICE_MAX)
+      .precision(2)
+      .messages({
+        "number.min": `Price must be at least $${VALIDATION.ACTIVITY.PRICE_MIN}`,
+        "number.max": `Price cannot exceed $${VALIDATION.ACTIVITY.PRICE_MAX}`
+      }),
+    
+    difficulty: COMMON.REQUIRED_STRING.valid(...VALIDATION.ACTIVITY.DIFFICULTY)
+      .messages({
+        "any.only": `Difficulty must be one of: ${VALIDATION.ACTIVITY.DIFFICULTY.join(", ")}`
+      }),
+    
+    country: COMMON.REQUIRED_STRING.length(2).uppercase()
+      .messages({
+        "string.length": "Country code must be 2 characters (e.g., US, CA)"
+      }),
+    
+    guideRequired: Joi.boolean().required()
+      .messages({
+        "boolean.base": "Guide requirement must be a boolean value"
+      }),
+    
+    images: Joi.array().items(
       Joi.object({
-        filename: Joi.string().required(), // Image filename is required
-        url: Joi.string().required(), // Image URL is required
+        filename: COMMON.STRING.pattern(/\.(jpg|jpeg|png)$/i)
+          .message("Invalid image file format"),
+        url: COMMON.STRING.uri()
+          .message("Invalid image URL format")
+      }).required()
+    ).min(1).max(VALIDATION.ACTIVITY.IMAGE_LIMIT)
+      .messages({
+        "array.min": "At least one image is required",
+        "array.max": `Maximum ${VALIDATION.ACTIVITY.IMAGE_LIMIT} images allowed`
       })
-    )
-    .min(1) // At least one image is required
-    .optional(), // Images array is optional
-});
+      .required()
+  }).options({ abortEarly: false }), // Return all validation errors
 
-// Schema for validating review data
-module.exports.reviewSchema = Joi.object({
-  review: Joi.object({
-    rating: Joi.number().required().min(1).max(5), // Rating is required and must be between 1 and 5
-    comment: Joi.string().required(), // Comment is required
-  }).required(), // The entire review object is required
-});
+  REVIEW: Joi.object({
+    review: Joi.object({
+      rating: COMMON.REQUIRED_NUMBER.integer()
+        .min(VALIDATION.REVIEW.RATING_MIN)
+        .max(VALIDATION.REVIEW.RATING_MAX)
+        .messages({
+          "number.base": "Rating must be a number",
+          "number.integer": "Rating must be a whole number",
+          "number.min": `Rating must be at least ${VALIDATION.REVIEW.RATING_MIN}`,
+          "number.max": `Rating cannot exceed ${VALIDATION.REVIEW.RATING_MAX}`
+        }),
+      
+      comment: COMMON.STRING.max(VALIDATION.REVIEW.COMMENT_MAX)
+        .messages({
+          "string.max": `Comment cannot exceed ${VALIDATION.REVIEW.COMMENT_MAX} characters`
+        })
+        .required()
+    }).required()
+  }).options({ abortEarly: false })
+};
+
+module.exports = {
+  activitySchema: SCHEMAS.ACTIVITY,
+  reviewSchema: SCHEMAS.REVIEW
+};
