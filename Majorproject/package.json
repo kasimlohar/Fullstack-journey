@@ -1,13 +1,18 @@
 {
   "name": "majorproject",
   "version": "1.0.0",
-  "description": "",
+  "description": "Adventure activity booking platform",
   "license": "ISC",
   "author": "Kasim Lohar",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.16.1",
@@ -29,5 +34,8 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
