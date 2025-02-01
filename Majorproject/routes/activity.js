@@ -1,39 +1,69 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router({ mergeParams: true });
+const multer = require("multer");
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB limit
+
+// Middleware
+const { isLoggedIn, isOwner, validateActivity } = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const Activity = require("../models/Activity.js");
-const {isLoggedIn, isOwner, validateActivity} = require("../middleware.js")
 
-const activitycontroller = require("../controllers/activities.js")
-const renderNewForm = require("../controllers/activities.js")
-const showActivity = require("../controllers/activities.js")
-const multer = require("multer")
-const {storage} = require("../cloudConfig.js")
-const upload = multer({ storage})
+// Controllers
+const activityController = require("../controllers/activities.js");
 
+/** 
+ * Activity Routes
+ * 
+ * GET /activities - List all activities
+ * POST /activities - Create new activity
+ */
+router.route("/")
+  .get(wrapAsync(activityController.index))
+  .post(
+    isLoggedIn,
+    upload.array("images", 5), // Allow multiple images (max 5)
+    validateActivity,
+    wrapAsync(activityController.createActivity)
+  );
 
+/**
+ * New Activity Form
+ * 
+ * GET /activities/new - Show new activity form
+ */
+router.get("/new", isLoggedIn, activityController.renderNewForm);
 
-router
-.route("/")
-.get( wrapAsync(activitycontroller.index))
-.post( isLoggedIn, upload.single("activity[image]"), validateActivity, wrapAsync(activitycontroller.creatActivity)); 
+/**
+ * Activity CRUD Operations
+ * 
+ * GET /activities/:id - Show activity details
+ * PUT /activities/:id - Update activity
+ * DELETE /activities/:id - Delete activity
+ */
+router.route("/:id")
+  .get(wrapAsync(activityController.showActivity))
+  .put(
+    isLoggedIn,
+    isOwner,
+    upload.array("images", 5),
+    validateActivity,
+    wrapAsync(activityController.updateActivity)
+  )
+  .delete(
+    isLoggedIn,
+    isOwner,
+    wrapAsync(activityController.destroyActivity)
+  );
 
-// New route for displaying form to add a new activity
-router
-.route("/new")
-.get( isLoggedIn, activitycontroller.renderNewForm);
-
-router
-.route("/:id")
-.get( wrapAsync(activitycontroller.showActivity))
-.put( isLoggedIn, isOwner, upload.single("activity[image]"), validateActivity, wrapAsync(activitycontroller.updateActivity))
-.delete( isLoggedIn, isOwner, wrapAsync(activitycontroller.destroyActivity));
-
-
-
-
-// Edit route for displaying form to edit an existing activity
-router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(activitycontroller.renderEditForm));
-
+/**
+ * Edit Activity Form
+ * 
+ * GET /activities/:id/edit - Show edit form
+ */
+router.get("/:id/edit",
+  isLoggedIn,
+  isOwner,
+  wrapAsync(activityController.renderEditForm)
+);
 
 module.exports = router;
