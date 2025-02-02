@@ -1,36 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en" class="h-100" data-bs-theme="light">
 <head>
-    <!-- Meta Tags -->
+    <!-- Essential Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Book your next adventure with Wanderlust - Premier platform for adventure activities and experiences' %>">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
 
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Wanderlust Adventures">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/images/og-image.jpg">
+    <meta property="og:url" content="">
+    
     <!-- Page Title -->
     <title>Wanderlust Adventures</title>
 
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="/css/style.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" as="script">
+
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="/css/style.css"> <!-- Custom CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/rating.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css?v=<%= process.env.ASSET_VERSION %>">
+    <link rel="stylesheet" href="/css/rating.css?v=<%= process.env.ASSET_VERSION %>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer" />
+
+    <!-- Mapbox Resources -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 </head>
+
 <body class="d-flex flex-column h-100">
-    <!-- Include Navbar -->
+    <!-- Skip Navigation Link -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Navigation -->
     <%- include("../includes/navbar.ejs") %>
 
     <!-- Main Content -->
-    <main class="container mt-4 flex-shrink-0">
+    <main id="main-content" class="container mt-4 flex-shrink-0" role="main">
         <%- include("../includes/flash.ejs") %>
-        <%- body %> <!-- Dynamic content injected here -->
+        <%- body %>
     </main>
 
-    <!-- Include Footer -->
+    <!-- Footer -->
     <%- include("../includes/footer.ejs") %>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
-    <script src="/js/script.js"></script> <!-- Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+        crossorigin="anonymous"></script>
+    
+    <!-- Application Scripts -->
+    <script src="/js/script.js?v=<%= process.env.ASSET_VERSION %>" defer></script>
+    
+    <!-- Conditional Mapbox Initialization -->
+    <script>
+        mapboxgl.accessToken = '<%= process.env.MAP_TOKEN %>';
+    </script>
+
+    <!-- Noscript Fallback -->
+    <noscript>
+        <div class="alert alert-danger m-3" role="alert">
+            JavaScript is required for proper website functionality. Please enable it in your browser settings.
+        </div>
+    </noscript>
 </body>
 </html>
