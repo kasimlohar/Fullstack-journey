@@ -1,129 +1,144 @@
-<!-- Include the layout template -->
 <% layout('layouts/boilerplate') %>
-<script>
-  const mapToken = "<%= process.env.MAP_TOKEN %>";
-  const activity = <%- JSON.stringify(activity) %>;
-</script>
 
-<!-- Main Container -->
-<div class="container justify-content-center align-items-center">
-  <div class="row justify-content-center align-items-center">
-    <!-- Activity Details Section -->
-    <div class="col-md-8">
-      <!-- Activity Card -->
-      <div class="card mb-3">
-        <!-- Activity Image -->
-        <img src="<%= activity.image && activity.image.url ? activity.image.url : 'default-image-url.jpg' %>" class="card-img-top" alt="<%= activity.name %>">
+<div class="container mt-5">
+  <div class="row g-4">
+    <!-- Main Content -->
+    <div class="col-lg-8">
+      <article>
+        <header class="mb-4">
+          <h1 class="display-5 mb-3"><%= activity.name %></h1>
+          <div class="d-flex align-items-center gap-3 text-muted">
+            <span>
+              <i class="bi bi-geo-alt"></i>
+              <%= activity.location %>, <%= activity.country %>
+            </span>
+            <span class="badge bg-<%=activity.difficulty %>">
+              <%= activity.difficulty %>
+            </span>
+          </div>
+        </header>
 
-        <!-- Card Body -->
-        <div class="card-body">
-          <!-- Activity Name -->
-          <h2 class="card-title"><%= activity.name %></h2>
-
-          <!-- Activity Description -->
-          <i>Owned by<b> <%= activity.owner.username %></b></i>
-          <br>
-          <p class="card-text"><%= activity.description %></p>
-
-          <!-- Activity Details List -->
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item"><strong>Location:</strong> <%= activity.location %>, <%= activity.country %></li>
-            <li class="list-group-item"><strong>Difficulty:</strong> <%= activity.difficulty %></li>
-            <li class="list-group-item"><strong>Duration:</strong> <%= activity.duration %></li>
-            <li class="list-group-item"><strong>Price:</strong> $<%= activity.price %></li>
-            <li class="list-group-item"><strong>Guide Required:</strong> <%= activity.guideRequired ? 'Yes' : 'No' %></li>
-          </ul>
-        </div>
-      </div>
-      
-      <% if(currUser && activity.owner._id.equals(currUser._id)) { %>
-      <!-- Edit and Delete Buttons -->
-      <div class="d-flex">
-        <a href="/activities/<%= activity._id %>/edit" class="btn btn-info me-2">Edit</a>
-        <form action="/activities/<%= activity._id %>?_method=DELETE" method="POST">
-          <button class="btn btn-danger">Delete</button>
-        </form>
-      </div>
-      <% } %>
-    </div>
-
-
-    
-    <!-- Reviews Section -->
-    <div class="col-md-8"> 
-    <hr>
-      <% if(currUser) { %>
-      <!-- Leave a Review Form -->
-      <form action="/activities/<%= activity.id %>/reviews" method="POST" novalidate class="needs-validation">
-        <div class="mb-3 mt-3">
-          <label for="rating" class="form-label form-range">Rating</label>
-        <fieldset class="starability-slot">
-          <legend>First rating:</legend>
-          <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-          <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-          <label for="first-rate1" title="Terrible">1 star</label>
-          <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-          <label for="first-rate2" title="Not good">2 stars</label>
-          <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-          <label for="first-rate3" title="Average">3 stars</label>
-          <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-          <label for="first-rate4" title="Very good">4 stars</label>
-          <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-          <label for="first-rate5" title="Amazing">5 stars</label>
-        </fieldset>
-        </div>
-
-        <!-- Comment Input -->
-        <div class="mb-3 mt-3">
-          <label for="comment" class="form-label">Comments</label>
-          <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
-          <div class="invalid-feedback">Please add some comments for reviews</div>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="mb-3 mt-3">
-          <button class="btn btn-outline-dark">Submit</button>
-        </div>
-        <hr>
-      </form>
-      <% } %>
-
-
-      <!-- All Reviews Section -->
-       <% if(activity.reviews.length > 0) { %>
-      <div class="row">
-        <p><b>All Reviews</b></p>
-        <!-- Loop through reviews and display them -->
-        <% for (review of activity.reviews) { %>
-          <div class="col-md-6 col-lg-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <!-- Reviewer Name -->
-                <h5 class="card-title">@<%= review.author.username || 'Anonymous' %></h5>
-                <!-- Review Rating -->
-                <p class="starability-result card-text" data-rating="<%=review.rating%>">
-                </p>
-
-                <!-- Review Comment -->
-                <p class="card-text"><%= review.comment %></p>
-
+        <!-- Image Gallery -->
+        <section class="mb-5">
+          <div class="row g-3">
+            <% activity.images.forEach((image, index) => { %>
+              <div class="col-6 col-md-4">
+                <a href="<%= image.url %>" data-fslightbox>
+                  <img src="<%= image.url %>" 
+                       class="img-fluid rounded-3" 
+                       alt="Activity image <%= index + 1 %>"
+                       loading="lazy">
+                </a>
               </div>
+            <% }) %>
+          </div>
+        </section>
 
-              <!-- Delete Review Form -->
-              <form class="mb-3 ms-3" method="POST" action="/activities/<%= activity._id %>/reviews/<%= review._id %>?_method=DELETE">
-                <button class="btn btn-sm btn-dark">Delete</button>
+        <!-- Activity Details -->
+        <section class="mb-5">
+          <h2 class="h4 mb-3">Activity Details</h2>
+          <div class="row row-cols-2 row-cols-md-3 g-3">
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <dt class="small">Duration</dt>
+                  <dd class="mb-0"><%= activity.duration %></dd>
+                </div>
+              </div>
+            </div>
+            <!-- Add other details cards -->
+          </div>
+        </section>
+
+        <!-- Owner Actions -->
+        <% if (currUser && activity.owner._id.equals(currUser._id)) { %>
+          <section class="border-top pt-4">
+            <h2 class="h5 mb-3">Manage Activity</h2>
+            <div class="d-flex gap-2">
+              <a href="/activities/<%= activity._id %>/edit" class="btn btn-outline-primary">
+                <i class="bi bi-pencil"></i> Edit
+              </a>
+              <form method="POST" action="/activities/<%= activity._id %>?_method=DELETE">
+                <button type="button" 
+                        class="btn btn-outline-danger"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#deleteConfirmation">
+                  <i class="bi bi-trash"></i> Delete
+                </button>
               </form>
             </div>
-          </div>
+          </section>
         <% } %>
-      <% } %>
-      </div>
-      <div class="col-8 mb-3">
-        <h3>Where you'll be</h3>
-        <div id="map"></div>
-  
-      </div>
-      <script src="/js/map.js"></script>
-    </div>  
+      </article>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <aside>
+        <!-- Booking Widget -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h3 class="h5 card-title mb-3">Book This Adventure</h3>
+            <!-- Add booking form elements -->
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="card shadow-sm">
+          <div class="card-body p-0">
+            <div id="map" 
+                 class="map-container rounded-3">
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
   </div>
+
+  <!-- Reviews Section -->
+  <section class="mt-5 pt-4 border-top">
+    <h2 class="h4 mb-4">Traveler Reviews</h2>
+    
+    <% if (activity.reviews.length > 0) { %>
+      <div class="row g-3">
+        <% reviews.forEach(review => { %>
+          <div class="col-md-6">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <div class="avatar-sm bg-light rounded-circle"></div>
+                  <div>
+                    <div class="fw-medium"><%= review.author.username %></div>
+                    <div class="text-muted small">
+                      <%= new Date(review.createdAt).toLocaleDateString() %>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="rating mb-2" 
+                     aria-label="Rating: <%= review.rating %> out of 5 stars">
+                  <% for (let i = 1; i <= 5; i++) { %>
+                    <i class="bi bi-star<%= i <= review.rating ? '-fill' : '' %> text-warning"></i>
+                  <% } %>
+                </div>
+                
+                <p class="card-text"><%= review.comment %></p>
+                
+                <% if (currUser) { %>
+                  <form method="POST" 
+                        action="/activities/<%= activity._id %>/reviews/<%= review._id %>?_method=DELETE">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                      Delete Review
+                    </button>
+                  </form>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="alert alert-info">No reviews yet. Be the first to share your experience!</div>
+    <% } %>
+  </section>
 </div>
