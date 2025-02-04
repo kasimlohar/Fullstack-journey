@@ -1,127 +1,141 @@
-/* Base styles */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fcf8f8;
+:root {
+    /* Color Scheme */
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #27ae60;
+    --danger-color: #e74c3c;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --text-color: #333;
+    
+    /* Spacing */
+    --spacing-unit: 1rem;
+    --border-radius: 0.5rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.15);
+    --shadow-lg: 0 8px 16px rgba(0,0,0,0.2);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-normal: 0.3s ease-in-out;
+  }
+  
+  /* Base Styles */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--light-color);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
-}
-
-/* Main content wrapper */
-main {
-    flex: 1; /* Allows the main content to grow and push the footer to the bottom */
-}
-
-/* Card styles */
-.card {
-    transition: transform 0.3s ease;
-    margin-bottom: 20px;
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.card-img-top {
+  }
+  
+  /* Main Content Area */
+  main {
+    flex: 1;
+    padding: calc(var(--spacing-unit) * 3) 0;
+  }
+  
+  /* Card Component */
+  .card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-normal), 
+                box-shadow var(--transition-normal);
+    overflow: hidden;
+  }
+  
+  .card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .card-img-top {
+    width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 8px 8px 0 0;
-}
-
-/* Activity details */
-.activity-price {
-    font-size: 1.2rem;
-    color: #28a745;
-    font-weight: bold;
-}
-
-.activity-location {
-    color: #6c757d;
-    font-size: 0.9rem;
-}
-
-/* Badges */
-.badge {
-    margin-right: 5px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.5rem 0.75rem;
-}
-
-/* Footer Styles */
-.footer {
-    background-color: #343a40; /* Dark background for the footer */
-    color: #ffffff; /* White text color */
-    padding: 2rem 0;
-    margin-top: auto; /* Ensures the footer sticks to the bottom */
-    width: 100%;
-}
-
-.footer h5 {
+    object-position: center;
+  }
+  
+  /* Price Display */
+  .activity-price {
     font-size: 1.25rem;
-    margin-bottom: 1rem;
-    color: #ffffff;
-}
-
-.footer p {
-    color: #adb5bd; /* Light gray text for paragraphs */
-    margin-bottom: 0.5rem;
-}
-
-.footer ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.footer ul li {
-    margin-bottom: 0.5rem;
-    color: #adb5bd; /* Light gray text for list items */
-}
-
-.footer ul li i {
-    margin-right: 0.5rem;
-    color: #ffffff; /* White icons */
-}
-
-.footer a {
-    color: #ffffff; /* White text for links */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer a:hover {
-    color: #0d6efd !important; /* Blue color on hover */
-}
-
-.footer .social-links a {
-    font-size: 1.5rem;
-    margin-right: 1rem;
-    color: #ffffff; /* White icons for social links */
-}
-
-.footer .social-links a:hover {
-    color: #0d6efd !important; /* Blue color on hover */
-}
-
-.footer hr {
-    margin: 1.5rem 0;
-    opacity: 0.2;
-    border-color: #6c757d; /* Light gray border color */
-}
-
-.footer .copyright {
-    text-align: center;
-    color: #adb5bd; /* Light gray text for copyright */
-    margin-top: 1rem;
-}
-
-/* map */
-#map {
+    color: var(--success-color);
+    font-weight: 700;
+  }
+  
+  /* Badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5em 0.75em;
+    border-radius: 2em;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .badge-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  /* Map Container */
+  #map {
+    width: 100%;
     height: 400px;
-    width: 80vh;
-}
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background-color: var(--light-color);
+  }
+  
+  /* Footer Styles */
+  .footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: calc(var(--spacing-unit) * 3) 0;
+    margin-top: auto;
+  }
+  
+  .footer a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+  
+  .footer a:hover {
+    opacity: 0.8;
+    color: inherit;
+  }
+  
+  .footer-social {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .card {
+      margin-bottom: var(--spacing-unit);
+    }
+  
+    .card-img-top {
+      height: 150px;
+    }
+  
+    #map {
+      height: 300px;
+    }
+  }
