@@ -5,7 +5,7 @@ const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB limit
 
 // Middleware
-const { isLoggedIn, isOwner, validateActivity } = require("../middleware.js");
+const { requireAuth, checkOwnership, validateActivity } = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 
 // Controllers
@@ -20,7 +20,7 @@ const activityController = require("../controllers/activities.js");
 router.route("/")
   .get(wrapAsync(activityController.index))
   .post(
-    isLoggedIn,
+    requireAuth,
     upload.array("images", 5), // Allow multiple images (max 5)
     validateActivity,
     wrapAsync(activityController.createActivity)
@@ -31,7 +31,7 @@ router.route("/")
  * 
  * GET /activities/new - Show new activity form
  */
-router.get("/new", isLoggedIn, activityController.renderNewForm);
+router.get("/new", requireAuth, activityController.renderNewForm);
 
 /**
  * Activity CRUD Operations
@@ -43,15 +43,15 @@ router.get("/new", isLoggedIn, activityController.renderNewForm);
 router.route("/:id")
   .get(wrapAsync(activityController.showActivity))
   .put(
-    isLoggedIn,
-    isOwner,
+    requireAuth,
+    checkOwnership,
     upload.array("images", 5),
     validateActivity,
     wrapAsync(activityController.updateActivity)
   )
   .delete(
-    isLoggedIn,
-    isOwner,
+    requireAuth,
+    checkOwnership,
     wrapAsync(activityController.destroyActivity)
   );
 
@@ -61,8 +61,8 @@ router.route("/:id")
  * GET /activities/:id/edit - Show edit form
  */
 router.get("/:id/edit",
-  isLoggedIn,
-  isOwner,
+  requireAuth,
+  checkOwnership,
   wrapAsync(activityController.renderEditForm)
 );
 

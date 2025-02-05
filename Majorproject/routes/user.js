@@ -4,7 +4,7 @@ const passport = require("passport");
 const rateLimit = require("express-rate-limit");
 
 // Middleware & Utilities
-const { saveRedirectUrl } = require("../middleware.js");
+const { preserveReturnTo } = require("../middleware.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const userController = require("../controllers/users.js");
 
@@ -29,7 +29,7 @@ router.route("/login")
   .get(userController.renderLoginForm)
   .post(
     authLimiter,
-    saveRedirectUrl,
+    preserveReturnTo,
     passport.authenticate("local", {
       failureRedirect: "/login",
       failureFlash: "Invalid email or password",
