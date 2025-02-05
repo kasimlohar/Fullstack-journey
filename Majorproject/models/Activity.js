@@ -3,7 +3,7 @@
  * Defines the structure and behavior of adventure activities
  * Includes geo-spatial data, reviews, and owner relationships
  */
-
+const validator = require("validator");
 const mongoose = require('mongoose');
 const Review = require('./review.js');
 
