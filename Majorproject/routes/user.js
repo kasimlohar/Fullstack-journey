@@ -32,7 +32,8 @@ router.route("/login")
     preserveReturnTo,
     passport.authenticate("local", {
       failureRedirect: "/login",
-      failureFlash: "Invalid email or password",
+      failureFlash: true,
+      failureMessage: "Invalid username or password", // More generic message
       keepSessionInfo: true
     }),
     userController.login

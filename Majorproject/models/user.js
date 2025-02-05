@@ -74,18 +74,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// Password hashing middleware
-userSchema.pre("save", async function(next) {
-  if (!this.isModified("password")) return next();
-  
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+// Remove the password hashing middleware
 
 // Account locking for failed attempts
 userSchema.virtual("isLocked").get(function() {
@@ -109,9 +98,17 @@ userSchema.methods.incrementLoginAttempts = function() {
 };
 
 userSchema.plugin(passportLocalMongoose, {
-  usernameField: "email",
+  usernameField: "username", // Change this from email to username
   limitAttempts: true,
-  interval: 15 * 60 * 1000 // 15 minutes
+  maxAttempts: 5,
+  unlockInterval: 15 * 60 * 1000, // 15 minutes
+  errorMessages: {
+    UserExistsError: 'A user with the given username already exists',
+    IncorrectPasswordError: 'Password is incorrect',
+    IncorrectUsernameError: 'Username is incorrect',
+    MissingPasswordError: 'No password was given',
+    AttemptTooSoonError: 'Account is currently locked. Try again later'
+  }
 });
 
 // Indexes

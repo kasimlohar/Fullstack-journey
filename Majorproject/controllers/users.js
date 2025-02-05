@@ -8,21 +8,14 @@ module.exports = {
     res.render("users/signup");
   },
 
-  signup: async (req, res) => {
+  signup: async (req, res, next) => {
     try {
       const { email, username, password } = req.body;
       
-      // Check existing user
-      const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-      if (existingUser) {
-        req.flash("error", "Email or username already exists");
-        return res.redirect("/signup");
-      }
-
-      // Password validation
-      const passwordError = validatePassword(password);
-      if (passwordError) {
-        req.flash("error", passwordError);
+      // Check existing email
+      const existingEmail = await User.findOne({ email });
+      if (existingEmail) {
+        req.flash("error", "Email already exists");
         return res.redirect("/signup");
       }
 
