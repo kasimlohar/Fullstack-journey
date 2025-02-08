@@ -4,13 +4,19 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import LodoBoard from "./LodoBoard"
 import TodoList from "./TodoList"
+import Lottery from './Lottery'
+import { sum } from "./helper"
+
 
 function App() {
+  
+  let winCondition = (ticket) => {
+    return sum(ticket) === 15;
+  }
 
   return (
     <>
-     <TodoList />
-
+      <Lottery n={3} winCondition={winCondition} />
     </>
   )
 }
