@@ -1,16 +1,19 @@
+/* Box styling */
 .box {
     height: 100px;
     width: 100px;
     font-size: 50px;
     background-color: grey;
-    text-align: center;
-    border-radius: 10px;
     border: 2px solid black;
-    text-align: center;
-    
-}
-#container {
-    
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+  }
+  
+  /* Flex container for boxes */
+  #container {
     height: 400px;
     width: 400px;
     background-color: white;
@@ -20,24 +23,30 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-}
-#nav {
+    margin: auto;
+  }
+  
+  /* Navigation bar styling */
+  #nav {
     height: 50px;
     width: 900px;
     background-color: beige;
     border: 2px solid gray;
     border-radius: 10px;
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    
-    
-}
-
-.item {
+    align-items: center;
+    padding-left: 10px;
+    margin: 20px auto;
+  }
+  
+  /* Navigation item styling */
+  .item {
     height: 50px;
     width: 80px;
     font-size: 24px;
-    
-
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+  

@@ -1,16 +1,19 @@
+/* Reset default margin/padding and set font */
 * {
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
-}
-
-.main_box {
+  }
+  
+  /* Main container with background image */
+  .main_box {
     background: url(photo.jpg);
     height: 100vh;
     background-size: cover;
-}
-
-.btn_one i {
+  }
+  
+  /* Open sidebar button styling */
+  .btn_one i {
     color: white;
     font-size: 30px;
     font-weight: 700;
@@ -19,9 +22,10 @@
     line-height: 60px;
     cursor: pointer;
     transition: all 0.3s linear;
-}
-
-.sidebar_menu {
+  }
+  
+  /* Sidebar menu container styling */
+  .sidebar_menu {
     position: fixed;
     height: 100vh;
     left: -300px;
@@ -29,98 +33,111 @@
     background-color: rgba(230, 224, 224, 0.1);
     box-shadow: 0 0 6px rgba(85, 79, 79, 0.5);
     transition: all 0.3s linear;
-}
-.sidebar_menu .logo {
+  }
+  
+  /* Logo section styling within sidebar */
+  .sidebar_menu .logo {
     position: absolute;
     width: 100%;
+    height: 60px;
     line-height: 60px;
     box-shadow: 0 2px 4px rgba(77, 74, 74, 0.5);
-    height: 60px;
-}
-
-.sidebar_menu .logo a {
+  }
+  
+  /* Logo link styling */
+  .sidebar_menu .logo a {
     position: absolute;
     left: 80px;
     text-decoration: none;
     color: white;
-
-}
-
-.sidebar_menu .btn_two i {
+  }
+  
+  /* Close sidebar button styling */
+  .sidebar_menu .btn_two i {
     color: grey;
+    position: absolute;
     left: 275px;
     font-size: 25px;
     line-height: 60px;
-    position: absolute;
     opacity: 0;
     cursor: pointer;
-    
-}
-
-.sidebar_menu .menu {
+  }
+  
+  /* Menu list styling */
+  .sidebar_menu .menu {
     position: absolute;
     width: 100%;
     color: white;
     top: 80px;
-}
-
-.sidebar_menu .menu li {
+  }
+  
+  .sidebar_menu .menu li {
     padding: 10px 20px;
     margin: 6px;
-
-}
-
-.sidebar_menu .menu i,a {
+  }
+  
+  /* Styling for icons and links in the menu */
+  .sidebar_menu .menu i,
+  .sidebar_menu .menu a {
     color: white;
     text-decoration: none;
     font-size: 20px;
-}
-
-.sidebar_menu .menu i {
+  }
+  .sidebar_menu .menu i {
     padding-right: 10px;
-}
-
-.sidebar_menu .social_media {
+  }
+  
+  /* Social media icons container */
+  .sidebar_menu .social_media {
     position: absolute;
     left: 25%;
     bottom: 30px;
-}
-
-.sidebar_menu .social_media i {
+  }
+  
+  .sidebar_menu .social_media i {
     color: white;
     opacity: 0.5;
     padding: 4px;
-}
-
-#check {
+  }
+  
+  /* Hide checkbox used for toggling sidebar */
+  #check {
     display: none;
-}
-
-.sidebar_menu .menu li:hover {
+  }
+  
+  /* Hover effect for menu items */
+  .sidebar_menu .menu li:hover {
     box-shadow: 0 0 4px rgba(77, 74, 74, 0.5);
-}
-
-.btn_one i:hover {
+  }
+  
+  /* Hover effect for open button */
+  .btn_one i:hover {
     font-size: 40px;
-}
-
-.btn_two i:hover {
+  }
+  
+  /* Hover effect for close button */
+  .btn_two i:hover {
     font-size: 35px;
-}
-
-.sidebar_menu .social_media i:hover {
+  }
+  
+  /* Hover effect for social media icons */
+  .sidebar_menu .social_media i:hover {
     opacity: 1;
     transform: scale(1.1);
-}
-
-#check:checked ~ .sidebar_menu {
+  }
+  
+  /* Toggle sidebar open when checkbox is checked */
+  #check:checked ~ .sidebar_menu {
     left: 0;
-}
-
-#check:checked ~ .btn_one i {
+  }
+  
+  /* Hide open button when sidebar is open */
+  #check:checked ~ .btn_one i {
     opacity: 0;
-}
-
-#check:checked ~.sidebar_menu .btn_two i {
+  }
+  
+  /* Show close button when sidebar is open */
+  #check:checked ~ .sidebar_menu .btn_two i {
     opacity: 1;
-}
+  }
+  

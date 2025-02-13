@@ -1,36 +1,43 @@
-/* Assignment Questions */
-p{
+/* Style for the poem paragraph */
+p {
     color: red;
     text-align: center;
     background-color: #964B00;
-    font-family: Georgia;
+    font-family: Georgia, serif;
     line-height: 30px;
-    
-}
-
-h1{
+    padding: 10px;
+  }
+  
+  /* Main heading styling */
+  h1 {
     text-align: center;
-    font-family: Georgia;
-    
-}
-
-h3{
+    font-family: Georgia, serif;
+  }
+  
+  /* Subheading styling */
+  h3 {
     color: black;
     text-align: center;
-    font-family: Georgia;
-}
-
-a{
+    font-family: Georgia, serif;
+  }
+  
+  /* Link styling */
+  a {
     color: rgb(0, 255, 0);
     text-decoration: none;
-}
-
-button{
+  }
+  
+  /* Button styling */
+  button {
     background-color: white;
     color: blueviolet;
-
-}
-
-.underline-word{
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Underline specific words */
+  .underline-word {
     text-decoration: underline;
-}
+  }
+  

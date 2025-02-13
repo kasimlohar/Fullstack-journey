@@ -4,40 +4,53 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSS Project</title>
+    <title>CSS Mini Project - Sidebar Menu</title>
+    <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
     <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for icons -->
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="main_box">
+      <!-- Checkbox to toggle sidebar -->
       <input type="checkbox" id="check" />
+      <!-- Button to open sidebar -->
       <div class="btn_one">
         <label for="check">
           <i class="fa-solid fa-bars"></i>
         </label>
       </div>
 
+      <!-- Sidebar Menu -->
       <div class="sidebar_menu">
+        <!-- Logo section -->
         <div class="logo">
           <a href="#">Apna College</a>
         </div>
 
+        <!-- Button to close sidebar -->
         <div class="btn_two">
           <label for="check" style="color: grey">
             <i class="fa-solid fa-xmark"></i>
           </label>
         </div>
 
+        <!-- Navigation Menu -->
         <div class="menu">
           <ul>
             <li>
@@ -71,11 +84,12 @@
           </ul>
         </div>
 
+        <!-- Social Media Links -->
         <div class="social_media">
           <ul>
-            <a href="#"><i class="fa-brands fa-facebook"></i></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
             <a href="#"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
             <a href="#"><i class="fa-brands fa-youtube"></i></a>
           </ul>
         </div>
