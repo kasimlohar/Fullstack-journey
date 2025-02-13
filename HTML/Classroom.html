@@ -1,273 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML(Level 3)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML (Level 3) - Classroom Examples</title>
+  <style>
+    /* Basic styling for tables */
+    table {
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+    table, th, td {
+      border: 1px solid #000;
+      padding: 5px;
+    }
+    caption {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  </style>
 </head>
-    <body>
-        <!-- Tables in html -->
-        <table border="black">
-            <caption>Food Menu</caption>
-            <thead>
-                <tr>
-                    <th>Food</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Frooti</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>Samosa</td>
-                    <td>12</td>
-                </tr>
-                <tr>
-                    <td>Chips</td>
-                    <td>20</td>
-                </tr>
-            </tbody>
-        </table>
-        <br/>
-        <!-- Rowspan and Colspan attributes -->
-        <table border="black">
-            <caption>Food Menu</caption>
-            <thead>
-                <tr>
-                    <th rowspan="2">Food</th>
-                    <th colspan="2">Price</th>
-                </tr>
-                <tr>
-                    <th>INR</th>
-                    <th>USD</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Frooti</td>
-                    <td>10</td>
-                    <td>0.43</td>
-                </tr>
-                <tr>
-                    <td>Samosa</td>
-                    <td>12</td>
-                    <td>0.23</td>
-                </tr>
-                <tr>
-                    <td>Chips</td>
-                    <td>20</td>
-                    <td>0.73</td>
-                </tr>
-            </tbody>
-        </table>
-        <br/>
-        <!-- Practice Qs of Rowspan and Colspan attributes -->
-        <table border="black">
-            <caption>A Test Table with merge cell</caption>
-            <tbody>
-                <tr>
-                    <td rowspan="2"></td>
-                    <td colspan="2">Average</td>
-                    <td rowspan="2">Red Eyes</td>
-                </tr>
-                <tr>
-                    <td>Height</td>
-                    <td>Weight</td>
-                </tr>
-                <tr>
-                    <td>Male</td>
-                    <td>1.9</td>
-                    <td>0.003</td>
-                    <td>40%</td>
-                </tr>
-                <tr>
-                    <td>Female</td>
-                    <td>1.7</td>
-                    <td>0.002</td>
-                    <td>43%</td>
-                </tr>
-            </tbody>
-        </table>
-        <br/>
-        <br/>
-        <!-- Forms in HTML -->
-        <form action="/action">
-            default
-            <input />  <!-- default test type -->
-            <br/>
-            Text
-            <input type="text" />
-            <br/>
-            Password
-            <input type="password" />
-            <br/>
-            Number
-            <input type="number" />
-            <br/>
-            Time
-            <input type="time" />
-            <br/>
-            Color
-            <input type="color" />
-            <br/>
-            <br/>
-        </form>
-            
-        <form action="/action">
-            <!-- Label -->
-            <label>
-                Username :
-                <input type="text" placeholder="Enter Username.." />
-                </label>
-                <br/>
-                <label>
-                    Password :
-                    <input type="password" placeholder="Enter password.." />
-            </label>
-            <br/>
-            <br/>
-        </form>
+<body>
+  <!-- ================================================= -->
+  <!-- Example 1: Basic Table with Caption                -->
+  <!-- ================================================= -->
+  <table>
+    <caption>Food Menu</caption>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Frooti</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td>Samosa</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <td>Chips</td>
+        <td>20</td>
+      </tr>
+    </tbody>
+  </table>
 
-        <form action="/action">
-            <!-- Label Classical Approach-->
-            <div>
-                <label for="username">Username :</label>
-                <input type="text" id="username" placeholder="Enter Usernname.."/>
-            </div>
-            <div>
-                <label for="password">Password :</label>
-                <input type="password" id="password" placeholder="Enter password.."/>
-            </div>
-            <br/>
-        </form>
-            
-        <form action="/action">
-            <!--Button Elements-->
-            <button>Submit</button> <!-- it forward to form "/action" (default) -->
-            <!--Type Attributes-->
-            <button type="submit">Submit</button>
-            <button type="button">Button</button>
-            <button type="reset">Reset</button>
-            <br/>
+  <!-- ================================================= -->
+  <!-- Example 2: Table with Rowspan and Colspan         -->
+  <!-- ================================================= -->
+  <table>
+    <caption>Food Menu with Currency</caption>
+    <thead>
+      <tr>
+        <th rowspan="2">Food</th>
+        <th colspan="2">Price</th>
+      </tr>
+      <tr>
+        <th>INR</th>
+        <th>USD</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Frooti</td>
+        <td>10</td>
+        <td>0.43</td>
+      </tr>
+      <tr>
+        <td>Samosa</td>
+        <td>12</td>
+        <td>0.23</td>
+      </tr>
+      <tr>
+        <td>Chips</td>
+        <td>20</td>
+        <td>0.73</td>
+      </tr>
+    </tbody>
+  </table>
 
-            <!--Button Using Input (not recommended)-->
-            <input type="submit"/>
-            <input type="submit" value="click here"/>
-            <br/>
-            <br/>
-        </form>
+  <!-- ================================================= -->
+  <!-- Example 3: Table with Merged Cells                -->
+  <!-- ================================================= -->
+  <table>
+    <caption>A Test Table with Merged Cells</caption>
+    <tbody>
+      <tr>
+        <!-- Empty cell with rowspan for header -->
+        <td rowspan="2"></td>
+        <td colspan="2">Average</td>
+        <td rowspan="2">Red Eyes</td>
+      </tr>
+      <tr>
+        <td>Height</td>
+        <td>Weight</td>
+      </tr>
+      <tr>
+        <td>Male</td>
+        <td>1.9</td>
+        <td>0.003</td>
+        <td>40%</td>
+      </tr>
+      <tr>
+        <td>Female</td>
+        <td>1.7</td>
+        <td>0.002</td>
+        <td>43%</td>
+      </tr>
+    </tbody>
+  </table>
 
-        <form action="https://www.youtube.com/results">
-            <!--Name Attribute-->
-            <label for="username1">Username :</label>
-            <input type="text" placeholder="username" id="username1" name="username" />
-            <label for="password1">Password :</label>
-            <input type="password" placeholder="password" id="password1" name="password" />
-            <button>Submit</button>
-            <br/>
-            <br/>
-            
-            <!--Name Attribute for Youtube Search-->
-            <label for="username1">Search :</label>
-            <input type="text" placeholder="search on youtube" id="username1" name="search_query" />
-            <button>Submit</button>
-            <br/>
-            <br/>
-        </form>
+  <!-- ================================================= -->
+  <!-- Example 4: Various Form Input Elements             -->
+  <!-- ================================================= -->
+  <h2>Form Elements Examples</h2>
 
-        <form action="/action">
-            <!--Practice Qs -->
-            <div>
-                <label for="Firstname"><h1>Registration Form</h1></label>
-                <br/>
-                <input type="text" placeholder="First Name" id="Firstname" name="FN"/>
-                <input type="text" placeholder="Last Name" id="Firstname" name="LN"/>
-                <br/>
-                <label for="gender">Please select gender</label>
-                <select name="gender" id="gender">
-                    <option value="male" selected>Male</option>
-                    <option value="fmale" >Female</option>
-                    <option value="other" >Other</option>
-                </select>
-                <br/>
-                <label for="terms">Do you agree to all terms of service?</label>
-                <input type="checkbox" name = "terms" id="terms" checked />
-                <label for="terms">Yes, I agree</label>
-                <br/>
-                <button>Register</button>
-            </div>
-        </form>
-        
-        <!--Qs1.Recreate the following table using HTML:-->
-        <div>
-            <table border="black">
-                <caption>Student Information</caption>
-                <tr>
-                    <th rowspan="7">Info</th>
-                    <th rowspan="2">Name</th>
-                    <th colspan="2">Address</th>
-                </tr>
-                <tr>
-                    <th>City</th>
-                    <th>House</th>
-                </tr>
-                
-                <tr></tr>
-                <tr>
-                    <td>A</td>
-                    <td>Delhi</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>B</td>
-                    <td>Mumbai</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>C</td>
-                    <td>Kolkata</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>D</td>
-                    <td>Pune</td>
-                    <td>4</td>
-                </tr>
-                
-            </table>
-        </div>
-        <div>
-            <br/>
-            <br/>
-            <label for="name">Name :</label>
-            <input type="text" name="name" id="name" />
-            <br/>
-            <label for="sex">Sex :</label>
-            <input type="radio" name="sex" id="sex" value="male" />
-            <label for="sex" >Male</label>
-            <input type="radio" name="sex" id="sex" value="female" />
-            <label for="sex" >Female</label>
-            <br/>
-            <label for="country">Country </label>
-            <select name="country" id="country">
-                <option value="select" selected>Select an Option</option>
-                <option value="ind">India</option>
-                <option value="america">America</option>
-                <option value="iraq">Iraq</option>
-                <option value="china">China</option>
-            </select>
-            <br/>
-            <label for="message">Message</label>
-            <br/>
-            <textarea id="message" ></textarea>
-            <br>
-            <input type="checkbox" name = "subscribe" id="subscribe" />
-            <label for="subscribe">Subscribe</label>
-            <br>
-            <button>Submit</button>
-        </div>
-            
-    </body>
+  <!-- Simple form demonstrating different input types -->
+  <form action="/action">
+    <!-- Default input -->
+    <input /> 
+    <br/>
+    <!-- Text input -->
+    <label>Text:
+      <input type="text" />
+    </label>
+    <br/>
+    <!-- Password input -->
+    <label>Password:
+      <input type="password" />
+    </label>
+    <br/>
+    <!-- Number input -->
+    <label>Number:
+      <input type="number" />
+    </label>
+    <br/>
+    <!-- Time input -->
+    <label>Time:
+      <input type="time" />
+    </label>
+    <br/>
+    <!-- Color input -->
+    <label>Color:
+      <input type="color" />
+    </label>
+    <br/><br/>
+  </form>
+
+  <!-- Form with implicit labels -->
+  <form action="/action">
+    <label>
+      Username:
+      <input type="text" placeholder="Enter Username..." />
+    </label>
+    <br/>
+    <label>
+      Password:
+      <input type="password" placeholder="Enter Password..." />
+    </label>
+    <br/><br/>
+  </form>
+
+  <!-- Form with explicit labels using 'for' and 'id' attributes -->
+  <form action="/action">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" placeholder="Enter Username..." />
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter Password..." />
+    </div>
+    <br/>
+  </form>
+
+  <!-- Form demonstrating different button types -->
+  <form action="/action">
+    <!-- Using button elements -->
+    <button>Submit (Default)</button>
+    <button type="submit">Submit (Submit)</button>
+    <button type="button">Button (Button)</button>
+    <button type="reset">Reset (Reset)</button>
+    <br/>
+    <!-- Using input elements as buttons (less recommended) -->
+    <input type="submit" value="Submit via Input" />
+    <br/><br/>
+  </form>
+
+  <!-- Form with external action (e.g., YouTube search) -->
+  <form action="https://www.youtube.com/results">
+    <!-- Login example -->
+    <label for="username1">Username:</label>
+    <input type="text" placeholder="username" id="username1" name="username" />
+    <label for="password1">Password:</label>
+    <input type="password" placeholder="password" id="password1" name="password" />
+    <button>Submit</button>
+    <br/><br/>
+    <!-- YouTube search example -->
+    <label for="search_query">Search on YouTube:</label>
+    <input type="text" placeholder="search on YouTube" id="search_query" name="search_query" />
+    <button>Submit</button>
+    <br/><br/>
+  </form>
+
+  <!-- Registration Form Example -->
+  <form action="/action">
+    <div>
+      <h1>Registration Form</h1>
+      <!-- Name inputs -->
+      <input type="text" placeholder="First Name" name="FN" />
+      <input type="text" placeholder="Last Name" name="LN" />
+      <br/>
+      <!-- Gender selection -->
+      <label for="gender">Please select gender:</label>
+      <select name="gender" id="gender">
+        <option value="male" selected>Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <br/>
+      <!-- Terms checkbox -->
+      <label for="terms">Do you agree to all terms of service?</label>
+      <input type="checkbox" name="terms" id="terms" checked />
+      <label for="terms">Yes, I agree</label>
+      <br/>
+      <!-- Submit button -->
+      <button>Register</button>
+    </div>
+  </form>
+
+  <!-- ================================================= -->
+  <!-- Example 5: Student Information Table               -->
+  <!-- ================================================= -->
+  <div>
+    <table>
+      <caption>Student Information</caption>
+      <thead>
+        <tr>
+          <th rowspan="7">Info</th>
+          <th rowspan="2">Name</th>
+          <th colspan="2">Address</th>
+        </tr>
+        <tr>
+          <th>City</th>
+          <th>House</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A</td>
+          <td>Delhi</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>Mumbai</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>Kolkata</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td>Pune</td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================================================= -->
+  <!-- Example 6: Additional Form Elements                -->
+  <!-- ================================================= -->
+  <div>
+    <br/><br/>
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" />
+    <br/>
+    <!-- Radio buttons for gender selection -->
+    <label for="male">Male</label>
+    <input type="radio" name="sex" id="male" value="male" />
+    <label for="female">Female</label>
+    <input type="radio" name="sex" id="female" value="female" />
+    <br/>
+    <!-- Dropdown for country selection -->
+    <label for="country">Country:</label>
+    <select name="country" id="country">
+      <option value="select" selected>Select an Option</option>
+      <option value="ind">India</option>
+      <option value="america">America</option>
+      <option value="iraq">Iraq</option>
+      <option value="china">China</option>
+    </select>
+    <br/>
+    <!-- Textarea for message input -->
+    <label for="message">Message:</label>
+    <br/>
+    <textarea id="message"></textarea>
+    <br/>
+    <!-- Checkbox for subscription -->
+    <input type="checkbox" name="subscribe" id="subscribe" />
+    <label for="subscribe">Subscribe</label>
+    <br/>
+    <button>Submit</button>
+  </div>
+</body>
 </html>

@@ -1,47 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Portfolio</title>
-    </head>
-    <body>
-        <header>
-            <h1>Kasim Lohar</h1>
-            <h2>I love to Find new thing on internet &hearts;</h2>
-            <img scr="Picture1.png" alt="My Image">
-        </header>
-        <section>
-            <h1>Education</h1>
-            <ul>
-                <li><b>10<sup>th</sup> Class : </b>88.40%</li>
-                <li><b>12<sup>th</sup> Class : </b>70.20%</li>
-                <li><b>Bachelors of Engineering (CGPA) : </b>8.05</li>
-            </ul>
-        </section>
-        <section>
-            <h1>Skills</h1>
-            <ul>
-                <li>HTML, CSS, JS</li>
-                <li>Node.js, SQL</li>
-                <li>Java, Python</li>
-            </ul>
-        </section>
-        <section>
-            <h1>Hobbies</h1>
-            <ul>
-                <li>Internet Surfing</li>
-                <li>Reading</li>
-            </ul>
-        </section>
-        <footer>
-            <h1>Contact</h1>
-            <ul>
-                <li>Mobile No : +91 7385631753</li>
-                <li>Email : kasimlohar2@gmail.com</li>
-                <li>LinkedIn : www.linkedin.com/kasimlohar</li>
-            </ul>
-        </footer>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio - Kasim Lohar</title>
+  <style>
+    /* Basic styling for the portfolio page */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    header, section, footer {
+      padding: 20px;
+    }
+    header {
+      background: #f4f4f4;
+      text-align: center;
+    }
+    header img {
+      max-width: 150px;
+      border-radius: 50%;
+    }
+    section {
+      margin: 10px 0;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      margin: 5px 0;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- ================================================= -->
+  <!-- Header Section: Introduction                     -->
+  <!-- ================================================= -->
+  <header>
+    <h1>Kasim Lohar</h1>
+    <h2>I love to find new things on the internet ♥</h2>
+    <!-- Fixed typo in the attribute: scr -> src -->
+    <img src="Picture1.png" alt="My Image" />
+  </header>
 
-    </body>
+  <!-- ================================================= -->
+  <!-- Education Section                                -->
+  <!-- ================================================= -->
+  <section>
+    <h1>Education</h1>
+    <ul>
+      <li><strong>10<sup>th</sup> Class:</strong> 88.40%</li>
+      <li><strong>12<sup>th</sup> Class:</strong> 70.20%</li>
+      <li><strong>Bachelor of Engineering (CGPA):</strong> 8.05</li>
+    </ul>
+  </section>
+
+  <!-- ================================================= -->
+  <!-- Skills Section                                   -->
+  <!-- ================================================= -->
+  <section>
+    <h1>Skills</h1>
+    <ul>
+      <li>HTML, CSS, JavaScript</li>
+      <li>Node.js, SQL</li>
+      <li>Java, Python</li>
+    </ul>
+  </section>
+
+  <!-- ================================================= -->
+  <!-- Hobbies Section                                  -->
+  <!-- ================================================= -->
+  <section>
+    <h1>Hobbies</h1>
+    <ul>
+      <li>Internet Surfing</li>
+      <li>Reading</li>
+    </ul>
+  </section>
+
+  <!-- ================================================= -->
+  <!-- Footer: Contact Information                      -->
+  <!-- ================================================= -->
+  <footer>
+    <h1>Contact</h1>
+    <ul>
+      <li>Mobile No: +91 7385631753</li>
+      <li>Email: <a href="mailto:kasimlohar2@gmail.com">kasimlohar2@gmail.com</a></li>
+      <li>LinkedIn: <a href="https://www.linkedin.com/in/kasimlohar" target="_blank">www.linkedin.com/kasimlohar</a></li>
+    </ul>
+  </footer>
+</body>
 </html>
