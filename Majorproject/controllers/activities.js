@@ -8,21 +8,10 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async (req, res) => {
     try {
-      const page = parseInt(req.query.page) || 1;
-      const limit = 10;
-      
-      const activities = await Activity.paginate({}, {
-        page,
-        limit,
-        sort: '-createdAt',
-        populate: 'owner'
-      });
+      const allActivities = await Activity.find({});
+      res.render("./activities/index.ejs", { allActivities });
 
-      res.render("activities/index", { 
-        activities,
-        currentPage: page,
-        totalPages: Math.ceil(activities.total / limit)
-      });
+      
     } catch (err) {
       req.flash('error', 'Failed to load activities');
       res.redirect('/');
