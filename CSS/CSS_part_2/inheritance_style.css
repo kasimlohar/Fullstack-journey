@@ -1,6 +1,7 @@
+/* Set a yellow background for all div elements */
 div {
     background-color: yellow;
-}
-
-
-/* inheratance */
+  }
+  
+  /* Additional inheritance-related styles can be added here */
+  

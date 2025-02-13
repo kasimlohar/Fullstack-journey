@@ -1,87 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
-    <title>CSS Chapter2</title>
-  </head>
-  <body>
-    <header>
-        <h1>Quora 
-            <button id="login">Log in</button>
-            <button id="signup">Sign up</button>
-        </h1>
-        <div>
-            <input type="text" placeholder="username">
-            <input type="password" placeholder="password">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/home">Home</a></li>
-                <li><a href="/following">Following</a></li>
-                <li><a href="/answer">Answer</a></li>
-                <li><a href="/spaces">Spaces</a></li>
-            </ul>
-        </nav>
-        <hr>
-    </header>
-    <main>
-        <div>
-            <p class="post">
-            Adam &nbsp;&nbsp;
-            <a class="follow" href="/adam">Follow /abc</a></span>
-            </p>
-            <h3>What is the highest salary for a spacex engineer?</h3>
-            <span>
-                <button class="upvote">+upvote</button>
-                <button>answer</button>
-            </span>
-            <hr />
-        </div>
-
-        <div>
-            <p class="post">
-            Bob &nbsp;&nbsp;
-            <a class="follow" href="/bob">Follow xyz</a>
-            </p>
-            <h3>What is the syllabus for JEE 2024?</h3>
-            <span>
-                <button class="upvote">+upvote</button>
-                <button>answer</button>
-            </span>
-            <hr />
-        </div>
-        <div>
-            <p class="post">
-            Catlyn &nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="follow" href="/catlyn">Follow pqr</a>
-            </p>
-            <h3>Why is the sky blue?</h3>
-            <span>
-                <button class="upvote">+upvote</button>
-                <button>answer</button>
-            </span>
-            <hr />
-        </div>
-        <div>
-            <p class="post">
-            Dan &nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="follow" href="/dan">Follow pqr</a>
-            </p>
-            <h3>Why is the sky blue?</h3>
-            <span>
-                <button class="upvote">+upvote</button>
-                <button>answer</button>
-            </span>
-            <hr />
-        </div>
-    </main>
-    <div id="myID"><p>lemoe aogfpjwspejjpdagjpsjdpgj afadsjmspg afjspf adfpsngdn afppenpenpa apfndpnsgnpnpd</p></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  <title>CSS Chapter 2 - Quora Demo</title>
+</head>
+<body>
+  <!-- Header Section with Title and Buttons -->
+  <header>
+    <h1>
+      Quora 
+      <!-- Login and Signup buttons -->
+      <button id="login">Log in</button>
+      <button id="signup">Sign up</button>
+    </h1>
+    <!-- Login form inputs -->
     <div>
-        <button type="radio" name="agreement" > Yes</button>
-        <button type="radio" name="agreement"> No</button>
+      <input type="text" placeholder="username" />
+      <input type="password" placeholder="password" />
     </div>
-  </body>
+    <!-- Navigation menu -->
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/following">Following</a></li>
+        <li><a href="/answer">Answer</a></li>
+        <li><a href="/spaces">Spaces</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </header>
+
+  <!-- Main Content Section -->
+  <main>
+    <!-- Post 1 -->
+    <div>
+      <p class="post">
+        Adam &nbsp;&nbsp;
+        <a class="follow" href="/adam">Follow /abc</a>
+      </p>
+      <h3>What is the highest salary for a SpaceX engineer?</h3>
+      <span>
+        <button class="upvote">+upvote</button>
+        <button>answer</button>
+      </span>
+      <hr />
+    </div>
+
+    <!-- Post 2 -->
+    <div>
+      <p class="post">
+        Bob &nbsp;&nbsp;
+        <a class="follow" href="/bob">Follow xyz</a>
+      </p>
+      <h3>What is the syllabus for JEE 2024?</h3>
+      <span>
+        <button class="upvote">+upvote</button>
+        <button>answer</button>
+      </span>
+      <hr />
+    </div>
+
+    <!-- Post 3 -->
+    <div>
+      <p class="post">
+        Catlyn &nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="follow" href="/catlyn">Follow pqr</a>
+      </p>
+      <h3>Why is the sky blue?</h3>
+      <span>
+        <button class="upvote">+upvote</button>
+        <button>answer</button>
+      </span>
+      <hr />
+    </div>
+
+    <!-- Post 4 -->
+    <div>
+      <p class="post">
+        Dan &nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="follow" href="/dan">Follow pqr</a>
+      </p>
+      <h3>Why is the sky blue?</h3>
+      <span>
+        <button class="upvote">+upvote</button>
+        <button>answer</button>
+      </span>
+      <hr />
+    </div>
+  </main>
+
+  <!-- Additional Content -->
+  <div id="myID">
+    <p>
+      lemoe aogfpjwspejjpdagjpsjdpgj afadsjmspg afjspf adfpsngdn afppenpenpa
+      apfndpnsgnpnpd
+    </p>
+  </div>
+
+  <!-- Radio Buttons Group -->
+  <div>
+    <button type="radio" name="agreement">Yes</button>
+    <button type="radio" name="agreement">No</button>
+  </div>
+</body>
 </html>

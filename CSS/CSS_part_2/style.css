@@ -1,130 +1,136 @@
-/* Universal selector */
-
+/* Universal selector: Apply Courier New font to all elements */
 * {
     font-family: 'Courier New';
-}
-
-/* Element selector */
-
-h1{
+  }
+  
+  /* Element selectors */
+  /* Style for main headings */
+  h1 {
     color: #f52936;
-}
-
-h3,button {
-    color:blue;
-}
-
-/* Id Selector */
-#login {
+  }
+  
+  /* Style for sub-headings and buttons */
+  h3,
+  button {
+    color: blue;
+  }
+  
+  /* ID selectors */
+  /* Login button styles */
+  #login {
     background-color: white;
-}
-
-#signup {
+  }
+  
+  /* Signup button styles */
+  #signup {
     background-color: #f52936;
     color: white;
-}
-
-/* Class selector */
-
-.upvote {
+  }
+  
+  /* Class selectors */
+  /* Upvote button styling */
+  .upvote {
     background-color: green;
     color: aliceblue;
-}
-
-/* Decendent selector */
-
-.post a {
+  }
+  
+  /* Descendant selectors */
+  /* Link inside post paragraphs */
+  .post a {
     background-color: yellow;
-}
-
-nav ul li a {
+  }
+  
+  /* Navigation link styling */
+  nav ul li a {
     color: hotpink;
-}
-
-/* ADjacent sibling combinator */
-
-p + h3 {
+  }
+  
+  /* Adjacent sibling combinator */
+  /* h3 immediately following a paragraph */
+  p + h3 {
     color: chocolate;
-}
-
-.upvote + button {
-    color: rgb(253, 253, 255);
+  }
+  
+  /* Styling for a button immediately after an upvote button */
+  .upvote + button {
     background-color: rgb(125, 49, 196);
-}
-
-/* Child Combinator */
-
-div > input {
+    color: rgb(253, 253, 255);
+  }
+  
+  /* Child combinator */
+  /* Input elements that are direct children of a div */
+  div > input {
     background-color: darksalmon;
-}
-
-/* Attribute selector */
-
-input[type="text"] {
+  }
+  
+  /* Attribute selectors */
+  /* Text input specific styles */
+  input[type="text"] {
     color: red;
-}
-
-input[type="password"] {
+  }
+  
+  /* Password input specific styles */
+  input[type="password"] {
     color: green;
-}
-
-input[type] {
+  }
+  
+  /* All input types get a ghostwhite background */
+  input[type] {
     background-color: ghostwhite;
-}
-
-/* Practice Qs */
-
-#myID p {
+  }
+  
+  /* Practice Questions styles */
+  /* Paragraph inside element with id "myID" */
+  #myID p {
     color: green;
-}
-
-/* OR */
-
-div[id = "myID"] {
+  }
+  
+  /* Alternatively, using attribute selector for id */
+  div[id="myID"] {
     color: green;
-}
-
-/* Pseudo Class */
-
-/* hover */
-button:hover {
+  }
+  
+  /* Pseudo-classes */
+  /* Hover state for all buttons */
+  button:hover {
     background-color: black;
     color: white;
-}
-
-/* active */
-button:active {
+  }
+  
+  /* Active state for all buttons */
+  button:active {
     background-color: hotpink;
-}
-
-/* :checked */
-
-input[type="radio"]:checked {
+  }
+  
+  /* Checked state for radio inputs */
+  input[type="radio"]:checked {
     color: red;
     font-weight: bold;
-}
-
-/* nth of type */ 
-div:nth-of-type(2n) {
+  }
+  
+  /* nth-of-type pseudo-class: Apply background to every even-numbered div */
+  div:nth-of-type(2n) {
     background-color: blanchedalmond;
-
-}
-
-/* psedo element */
-
-h1::first-letter {
+  }
+  
+  /* Pseudo-elements */
+  /* First letter of h1 elements */
+  h1::first-letter {
     color: black;
-}
-
-p::first-line {
+  }
+  
+  /* First line of paragraph elements */
+  p::first-line {
     color: blue;
-}
-
-p::selection {
-    background-color: rgb(162, 247, 162)
-}
-
-/* !important */
-h2{
+  }
+  
+  /* Selection styling for paragraphs */
+  p::selection {
+    background-color: rgb(162, 247, 162);
+  }
+  
+  /* Override with !important example (if needed) */
+  h2 {
     color: black;
-}
+  }
+  

@@ -1,17 +1,21 @@
+/* Apply a Courier New font to all elements */
 * {
     font-family: 'Courier New';
-}
-
-h1 {
+  }
+  
+  /* Style the main heading */
+  h1 {
     color: #1b74e4;
-}
-
-#searchbtn {
+  }
+  
+  /* Style for the search button */
+  #searchbtn {
     background-color: black;
     color: white;
-}
-
-.userbtn {
+  }
+  
+  /* Style for the user buttons */
+  .userbtn {
     background-color: aqua;
-}
-
+  }
+  
