@@ -166,6 +166,42 @@
     gap: 1.5rem;
     justify-content: center;
   }
+
+  /* Enhanced Footer Styles */
+  .footer {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+  }
+
+  .footer-brand i {
+    color: var(--accent-color);
+  }
+
+  .footer h6 {
+    color: var(--accent-color);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .footer-contact li i {
+    color: var(--accent-color);
+  }
+
+  .social-links a {
+    transition: color var(--transition-fast);
+  }
+
+  .social-links a:hover {
+    color: var(--accent-color) !important;
+  }
+
+  .footer a {
+    transition: color var(--transition-fast);
+  }
+
+  .footer a:hover {
+    color: var(--accent-color) !important;
+  }
   
   /* Responsive Design */
   @media (max-width: 768px) {
