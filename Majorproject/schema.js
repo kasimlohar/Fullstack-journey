@@ -19,7 +19,7 @@ const COMMON = {
 const VALIDATION = {
   ACTIVITY: {
     PRICE_MIN: 0,
-    PRICE_MAX: 1000000,
+    PRICE_MAX: 10000,
     DIFFICULTY: ["Beginner", "Intermediate", "Advanced", "Expert"],
     DURATION_REGEX: /^\d+\s(hours?|days?|weeks?)$/,
     IMAGE_LIMIT: 5,
@@ -66,16 +66,23 @@ const SCHEMAS = {
         "any.only": `Difficulty must be one of: ${VALIDATION.ACTIVITY.DIFFICULTY.join(", ")}`
       }),
     
-    country: COMMON.REQUIRED_STRING.length(2).uppercase()
+    country: COMMON.REQUIRED_STRING
+      .min(2)
+      .max(56) // Length of longest country name
+      .pattern(/^[A-Za-z\s]+$/)
       .messages({
-        "string.length": "Country code must be 2 characters (e.g., US, CA)"
+        "string.pattern.base": "Country name must contain only letters and spaces",
+        "string.min": "Country name must be at least 2 characters",
+        "string.max": "Country name cannot exceed 56 characters"
       }),
     
-    guideRequired: Joi.boolean().required()
-      .messages({
-        "boolean.base": "Guide requirement must be a boolean value"
-      })
-  }).options({ abortEarly: false }), // Return all validation errors
+    guideRequired: Joi.boolean().default(false).optional(),  // Changed to have default and optional
+    
+    // Remove images from validation schema since it's handled by multer
+    images: Joi.array().optional(),
+    deleteImages: Joi.array().optional()  // Add this to handle image deletion
+    
+  }).options({ abortEarly: false, stripUnknown: true }), // Add stripUnknown option
 
   REVIEW: Joi.object({
     review: Joi.object({
@@ -97,13 +104,6 @@ const SCHEMAS = {
     }).required()
   }).options({ abortEarly: false })
 };
-
-const reviewSchema = Joi.object({
-    review: Joi.object({
-        rating: Joi.number().required().min(1).max(5).integer(),
-        comment: Joi.string().required().trim()
-    }).required()
-});
 
 module.exports = {
   activitySchema: SCHEMAS.ACTIVITY,

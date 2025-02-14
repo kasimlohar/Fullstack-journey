@@ -51,12 +51,16 @@ module.exports = {
 
   // Validation middleware
   validateActivity: (req, res, next) => {
-    let { error } = activitySchema.validate(req.body);
-    if (error) {
-        let errMsg = error.details.map((el) => el.message).join(",");
-        throw new ExpressError(errMsg, 400);
-    } else {
+    try {
+        // Skip image validation as it's handled by multer
+        const { error } = activitySchema.validate(req.body);
+        if (error) {
+            const msg = error.details.map(el => el.message).join(', ');
+            throw new ExpressError(msg, 400);
+        }
         next();
+    } catch (err) {
+        next(err);
     }
   },
 

@@ -100,17 +100,32 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="country" class="form-label">Country</label>
-          <input type="text" class="form-control" id="country" name="country" value="<%= activity.country %>" required>
+          <select class="form-control" id="country" name="country" required>
+            <option value="">Select a country</option>
+            <option value="India" <%= activity.country === 'India' ? 'selected' : '' %>>India</option>
+            <option value="Nepal" <%= activity.country === 'Nepal' ? 'selected' : '' %>>Nepal</option>
+            <option value="Bhutan" <%= activity.country === 'Bhutan' ? 'selected' : '' %>>Bhutan</option>
+            <option value="Thailand" <%= activity.country === 'Thailand' ? 'selected' : '' %>>Thailand</option>
+            <option value="Vietnam" <%= activity.country === 'Vietnam' ? 'selected' : '' %>>Vietnam</option>
+            <option value="Cambodia" <%= activity.country === 'Cambodia' ? 'selected' : '' %>>Cambodia</option>
+            <option value="Indonesia" <%= activity.country === 'Indonesia' ? 'selected' : '' %>>Indonesia</option>
+            <option value="Malaysia" <%= activity.country === 'Malaysia' ? 'selected' : '' %>>Malaysia</option>
+            <!-- Add more countries as needed -->
+          </select>
           <div class="invalid-feedback">
-            Please provide a country.
+            Please select a country
           </div>
         </div>
       </div>
 
-      <!-- Guide Required Checkbox -->
+      <!-- Guide Required Checkbox - Fixed -->
       <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" value="true" <%= activity.guideRequired ? 'checked' : '' %>>
-        <input type="hidden" name="guideRequired" value="false">
+        <input type="checkbox" 
+               class="form-check-input" 
+               id="guideRequired" 
+               name="guideRequired" 
+               value="true"
+               <%= activity.guideRequired ? 'checked' : '' %>>
         <label class="form-check-label" for="guideRequired">Guide Required</label>
       </div>
 

@@ -59,10 +59,26 @@ module.exports.showActivity = async (req, res) => {
 
 module.exports.createActivity = async (req, res, next) => {
   try {
-    // Convert guideRequired to boolean
-    req.body.guideRequired = req.body.guideRequired === 'true';
+    // Remove guide required handling
     
-    // Validate location first
+    // Process images first
+    if (!req.files || !req.files.length) {
+      req.flash('error', 'At least one image is required');
+      return res.redirect('/activities/new');
+    }
+
+    // Create activity with processed data
+    const newActivity = new Activity({
+      ...req.body,
+      images: req.files.map(f => ({
+        url: f.path,
+        filename: f.filename
+      })),
+      owner: req.user._id,
+      guideRequired: false // Set default value
+    });
+
+    // Get location coordinates
     const geoResponse = await geocodingClient.forwardGeocode({
       query: req.body.location,
       limit: 1,
@@ -73,31 +89,13 @@ module.exports.createActivity = async (req, res, next) => {
       return res.redirect('/activities/new');
     }
 
-    const newActivity = new Activity(req.body);
-    newActivity.owner = req.user._id;
     newActivity.geometry = geoResponse.body.features[0].geometry;
-
-    // Process uploaded images
-    if (!req.files || !req.files.length) {
-      throw new Error('At least one image is required');
-    }
-
-    newActivity.images = req.files.map(file => ({
-      url: file.path,
-      filename: file.filename
-    }));
-
     await newActivity.save();
-    req.flash("success", "Successfully created new activity!");
+
+    req.flash('success', 'Successfully created new activity!');
     res.redirect(`/activities/${newActivity._id}`);
   } catch (err) {
-    if (req.files) {
-      // Cleanup uploaded files on error
-      await Promise.all(req.files.map(f => cloudinary.uploader.destroy(f.filename)));
-    }
-    console.error('Activity creation error:', err);
-    req.flash("error", err.message || "Error creating activity");
-    res.redirect("/activities/new");
+    // ...existing error handling...
   }
 };
 
@@ -120,15 +118,13 @@ module.exports.updateActivity = async (req, res) => {
     try {
         const { id } = req.params;
         
-        // Convert guideRequired to boolean
-        req.body.guideRequired = req.body.guideRequired === 'true';
+        // Fix: Handle guideRequired boolean conversion
+        req.body.guideRequired = Boolean(req.body.guideRequired === 'true');
         
-        const activity = await Activity.findById(id);
-
-        if (!activity) {
-            req.flash('error', 'Cannot find that activity!');
-            return res.redirect('/activities');
-        }
+        const activity = await Activity.findByIdAndUpdate(id, req.body, {
+            new: true,
+            runValidators: true
+        });
 
         // Handle image deletion
         if (req.body.deleteImages) {

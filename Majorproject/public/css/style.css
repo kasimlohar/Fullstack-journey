@@ -278,3 +278,20 @@
     height: 400px;
     object-fit: cover;
   }
+
+  /* Difficulty Badge Colors */
+  .bg-Beginner {
+    background-color: var(--accent-color);
+  }
+
+  .bg-Intermediate {
+    background-color: var(--secondary-color);
+  }
+
+  .bg-Advanced {
+    background-color: #e74c3c;  /* Red */
+  }
+
+  .bg-Expert {
+    background-color: #8e44ad;  /* Purple */
+  }

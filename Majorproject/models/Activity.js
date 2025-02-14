@@ -28,16 +28,16 @@ const activitySchema = new mongoose.Schema({
     minlength: [50, 'Description must be at least 50 characters'],
     maxlength: [2000, 'Description cannot exceed 2000 characters']
   },
-  images: {
-    type: [{
-      filename: String,  // Simplified
-      url: String       // Simplified
-    }],
-    validate: {
-      validator: v => v && v.length > 0,  // Changed validation
-      message: 'At least one image is required'
+  images: [{
+    url: {
+      type: String,
+      required: true
+    },
+    filename: {
+      type: String,
+      required: true
     }
-  },
+  }],
   difficulty: {
     type: String,
     enum: {
@@ -61,10 +61,11 @@ const activitySchema = new mongoose.Schema({
   },
   country: {
     type: String,
-    required: [true, 'Country code is required'],
-    uppercase: true,
-    length: [2, 'Country code must be 2 characters'],
-    match: [/^[A-Z]{2}$/, 'Invalid country code format']
+    required: [true, 'Country name is required'],
+    trim: true,
+    minlength: [2, 'Country name must be at least 2 characters'],
+    maxlength: [56, 'Country name is too long'],
+    match: [/^[A-Za-z\s]+$/, 'Country name can only contain letters and spaces']
   },
   duration: {
     type: String,
@@ -131,6 +132,19 @@ activitySchema.post('findOneAndDelete', async function(doc) {
     }
   } catch (err) {
     console.error('Error deleting associated reviews:', err);
+  }
+});
+
+// Add pre-remove middleware to clean up images
+activitySchema.pre('remove', async function() {
+  if (this.images) {
+    for (const img of this.images) {
+      try {
+        await cloudinary.uploader.destroy(img.filename);
+      } catch (err) {
+        console.error('Error deleting image:', err);
+      }
+    }
   }
 });
 

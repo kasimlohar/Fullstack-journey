@@ -37,9 +37,51 @@
 
       <!-- Image Upload Field -->
       <div class="mb-3">
-        <label for="image" class="form-label">Upload Image (Required)</label>
-        <input type="file" class="form-control" id="image" name="images" accept="image/*" required>
+        <label for="images" class="form-label">Images</label>
+        <input type="file" 
+               class="form-control" 
+               id="images" 
+               name="images" 
+               accept="image/*" 
+               multiple 
+               required>
+        <div class="form-text">
+            Select up to 5 images (max 5MB each). Supported formats: JPG, PNG, WebP
+        </div>
+        <div class="invalid-feedback">
+            Please select at least one image.
+        </div>
       </div>
+
+      <!-- Preview Container -->
+      <div id="imagePreview" class="row g-2 mb-3"></div>
+
+      <!-- Add this JavaScript for image preview -->
+      <script>
+          const input = document.querySelector('#images');
+          const preview = document.querySelector('#imagePreview');
+
+          input.addEventListener('change', function() {
+              preview.innerHTML = '';
+              if (this.files) {
+                  [...this.files].forEach(file => {
+                      if (file.size > 5 * 1024 * 1024) {
+                          alert(`File ${file.name} is too large. Max size is 5MB`);
+                          return;
+                      }
+                      const reader = new FileReader();
+                      reader.onload = e => {
+                          preview.innerHTML += `
+                              <div class="col-md-3">
+                                  <img src="${e.target.result}" class="img-thumbnail" alt="Preview">
+                              </div>
+                          `;
+                      };
+                      reader.readAsDataURL(file);
+                  });
+              }
+          });
+      </script>
 
       <!-- Difficulty Field -->
       <div class="mb-3">
@@ -68,9 +110,15 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="duration" class="form-label">Duration</label>
-          <input type="text" class="form-control" id="duration" name="duration" required>
+          <input type="text" 
+                 class="form-control" 
+                 id="duration" 
+                 name="duration" 
+                 placeholder="e.g., 2 hours, 3 days, 1 week"
+                 required>
+          <div class="form-text">Format: number + space + hours/days/weeks</div>
           <div class="invalid-feedback">
-            Duration should be valid.
+              Please enter a valid duration (e.g., 2 hours, 3 days)
           </div>
         </div>
       </div>
@@ -86,20 +134,26 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="country" class="form-label">Country</label>
-          <input type="text" class="form-control" id="country" name="country" required>
+          <select class="form-control" id="country" name="country" required>
+              <option value="">Select a country</option>
+              <option value="India">India</option>
+              <option value="Nepal">Nepal</option>
+              <option value="Bhutan">Bhutan</option>
+              <option value="Thailand">Thailand</option>
+              <option value="Vietnam">Vietnam</option>
+              <option value="Cambodia">Cambodia</option>
+              <option value="Indonesia">Indonesia</option>
+              <option value="Malaysia">Malaysia</option>
+              <!-- Add more countries as needed -->
+          </select>
           <div class="invalid-feedback">
-            Country name should be valid.
+              Please select a country
           </div>
-        </div>
+      </div>
       </div>
 
-      <!-- Guide Required Checkbox -->
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" value="true">
-        <input type="hidden" name="guideRequired" value="false">
-        <label class="form-check-label" for="guideRequired">Guide Required</label>
-      </div>
-
+      <!-- Remove Guide Required Checkbox -->
+      
       <!-- Submit Button -->
       <button type="submit" class="btn btn-success">Add Activity</button>
     </form>
