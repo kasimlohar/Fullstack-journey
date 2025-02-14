@@ -39,6 +39,10 @@
   
   /* Navbar Styles */
   .navbar {
+    /* position: fixed;  Change from fixed to sticky */
+    top: 0;
+    width: 100%;
+    z-index: 1030;
     background-color: var(--primary-color) !important;
     box-shadow: var(--shadow-md);
   }
@@ -51,8 +55,9 @@
   /* Hero Section */
   .hero {
     position: relative;
-    height: 80vh;
-    min-height: 500px;
+    min-height: 80vh;  /* Change to min-height */
+    margin-top: -56px; /* Negative margin to compensate for navbar height */
+    padding-top: 56px; /* Add padding equal to navbar height */
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
                       url('/images/hero-bg.jpg');
     background-size: cover;
@@ -67,6 +72,7 @@
 
   /* Main Content Area */
   main {
+    margin-top: 1rem; /* Add some spacing after navbar for non-hero pages */
     flex: 1;
     padding: calc(var(--spacing-unit) * 3) 0;
   }
@@ -174,4 +180,65 @@
     #map {
       height: 300px;
     }
+  }
+
+  /* Activity Show Page Styles */
+  .activity-gallery {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  .price-display {
+    color: var(--accent-color);
+  }
+  
+  .info-panel {
+    background-color: var(--light-color);
+    border: none;
+  }
+  
+  .info-item {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-fast);
+  }
+
+  .info-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  .info-item i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-item h6 {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    color: var(--dark-color);
+  }
+
+  .info-item p {
+    font-weight: 500;
+    color: var(--primary-color);
+  }
+  
+  .sticky-top {
+    top: 2rem;
+    z-index: 1020;
+  }
+  
+  /* Swiper Gallery */
+  .swiper {
+    width: 100%;
+    border-radius: var(--border-radius);
+  }
+  
+  .swiper-slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
   }

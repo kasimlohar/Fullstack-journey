@@ -16,14 +16,15 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 </head>
 
-<body class="d-flex flex-column vh-100">
+<body class="d-flex flex-column min-vh-100">
     <%- include("../includes/navbar") %>
     
     <% if(currentPath === '/' || currentPath === '/activities') { %>
         <%- include("../includes/hero") %>
+        <main class="container">
+    <% } else { %>
+        <main class="container mt-4">
     <% } %>
-
-    <main class="container mt-5">
         <%- include("../includes/flash") %>
         <%- body %>
     </main>
