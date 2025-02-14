@@ -37,12 +37,21 @@ module.exports.showActivity = async (req, res) => {
             return res.redirect("/activities");
         }
 
+        // Ensure geometry exists
+        if (!activity.geometry) {
+            activity.geometry = {
+                type: 'Point',
+                coordinates: [0, 0] // Default coordinates if none exist
+            };
+        }
+
         res.render("activities/show", { 
             activity,
-            averageRating: activity.averageRating,
-            currUser: req.user // Explicitly pass current user
+            mapToken: process.env.MAP_TOKEN // Pass mapToken to template
         });
+        // Check the log in controllers/activities.js
     } catch (err) {
+        console.error("Map error:", err);
         req.flash("error", "Failed to load activity");
         res.redirect("/activities");
     }
