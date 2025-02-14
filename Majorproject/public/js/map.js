@@ -3,38 +3,33 @@
     'use strict';
   
     class ActivityMap {
-      constructor(token, containerId, activityData) {
+      constructor(token, containerId, activity) {
         this.token = token;
         this.containerId = containerId;
-        this.activity = typeof activityData === 'string' ? JSON.parse(activityData) : activityData;
+        this.activity = activity;
         this.map = null;
         this.marker = null;
         this.initialized = false;
       }
   
       init() {
-        try {
-            if (!this.validateCoordinates()) {
-                console.error('Invalid coordinates:', this.activity.geometry);
-                return;
-            }
-            
-            mapboxgl.accessToken = this.token;
-            
-            this.map = new mapboxgl.Map({
-                container: this.containerId,
-                style: 'mapbox://styles/mapbox/outdoors-v12',
-                center: this.activity.geometry.coordinates,
-                zoom: 9
-            });
-            
-            this.addControls();
-            this.createMarker();
-            this.addEventListeners();
-            this.initialized = true;
-        } catch (err) {
-            console.error('Map initialization error:', err);
-        }
+        if (!this.validateCoordinates()) return;
+        
+        mapboxgl.accessToken = this.token;
+        
+        this.map = new mapboxgl.Map({
+          container: this.containerId,
+          style: 'mapbox://styles/mapbox/outdoors-v12',
+          center: this.activity.geometry.coordinates,
+          zoom: 10,
+          maxZoom: 16,
+          minZoom: 8
+        });
+  
+        this.addControls();
+        this.createMarker();
+        this.addEventListeners();
+        this.initialized = true;
       }
   
       validateCoordinates() {
@@ -108,15 +103,11 @@
       }
     }
   
-    // Initialize map with error handling
+    // Initialize map if container exists
     const mapContainer = document.getElementById('map');
-    if (mapContainer && typeof activity !== 'undefined' && typeof mapToken !== 'undefined') {
-        try {
-            const activityMap = new ActivityMap(mapToken, 'map', activity);
-            activityMap.init();
-        } catch (err) {
-            console.error('Error creating map:', err);
-        }
+    if (mapContainer && typeof activity !== 'undefined') {
+      const activityMap = new ActivityMap(mapToken, 'map', activity);
+      activityMap.init();
     }
   
   })(window, document, mapboxgl);

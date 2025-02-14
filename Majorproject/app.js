@@ -116,20 +116,18 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Local Variables Middleware - Update this section
+// Local Variables Middleware
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
-    res.locals.currentPath = req.originalUrl; // Add this line
     next();
 });
 
 /* --------------------------
-  Route Handlers
-  -------------------------- */
+Route Handlers
+-------------------------- */
 app.use("/activities", activityRouter);
-// Fix: Update review routes to include activityId
 app.use("/activities/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
