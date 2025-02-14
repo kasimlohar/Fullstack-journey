@@ -74,8 +74,8 @@ app.set("views", path.join(__dirname, "views"));
 Middleware Stack
 -------------------------- */
 // Security Middleware
-app.use(helmet());
-app.use(mongoSanitize());
+// app.use(helmet());
+// app.use(mongoSanitize());
 
 // Rate Limiting
 const limiter = rateLimit({

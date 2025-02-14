@@ -13,7 +13,9 @@
 
       this.forms.forEach(form => {
         form.addEventListener('submit', this.handleSubmit.bind(this));
-        form.addEventListener('input', this.handleRealTimeValidation);
+        form.addEventListener('input', this.handleRealTimeValidation.bind(this));
+        // Bind the change event handler to the instance
+        form.addEventListener('change', this.handleRealTimeValidation.bind(this));
       });
     }
 
@@ -31,8 +33,9 @@
 
     handleRealTimeValidation(event) {
       const input = event.target;
-      if (input.tagName.toLowerCase() !== 'input') return;
-
+      // Updated to allow input, textarea, and select elements for validation.
+      if (!['input', 'textarea', 'select'].includes(input.tagName.toLowerCase())) return;
+      
       input.checkValidity() ? 
         this.clearCustomError(input) : 
         this.showCustomError(input);

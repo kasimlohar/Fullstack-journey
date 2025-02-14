@@ -47,44 +47,49 @@ module.exports.showActivity = async (req, res) => {
     }
   }
 
-module.exports.createActivity = async (req, res) => {
-    try {
-      const geoData = await geocodingClient.forwardGeocode({
-        query: req.body.location,
-        limit: 1
-      }).send();
+module.exports.createActivity = async (req, res, next) => {
+  try {
+    // Convert guideRequired to boolean
+    req.body.guideRequired = req.body.guideRequired === 'true';
+    
+    // Validate location first
+    const geoResponse = await geocodingClient.forwardGeocode({
+      query: req.body.location,
+      limit: 1,
+    }).send();
 
-      if (!geoData.body.features.length) {
-        req.flash('error', 'Invalid location');
-        return res.redirect('/activities/new');
-      }
-
-      const images = req.files.map(file => ({
-        url: file.path,
-        filename: file.filename
-      }));
-
-      const activityData = {
-        ...req.body,
-        geometry: geoData.body.features[0].geometry,
-        owner: req.user._id,
-        images
-      };
-
-      const activity = await Activity.create(activityData);
-      req.flash("success", "Successfully created new activity!");
-      res.redirect(`/activities/${activity._id}`);
-    } catch (err) {
-      // Cleanup uploaded files on error
-      if (req.files) {
-        await Promise.all(req.files.map(file => 
-          cloudinary.uploader.destroy(file.filename)
-        ));
-      }
-      req.flash("error", err.message);
-      res.redirect("/activities/new");
+    if (!geoResponse.body.features.length) {
+      req.flash('error', 'Invalid location. Please enter a valid location.');
+      return res.redirect('/activities/new');
     }
-}
+
+    const newActivity = new Activity(req.body);
+    newActivity.owner = req.user._id;
+    newActivity.geometry = geoResponse.body.features[0].geometry;
+
+    // Process uploaded images
+    if (!req.files || !req.files.length) {
+      throw new Error('At least one image is required');
+    }
+
+    newActivity.images = req.files.map(file => ({
+      url: file.path,
+      filename: file.filename
+    }));
+
+    await newActivity.save();
+    req.flash("success", "Successfully created new activity!");
+    res.redirect(`/activities/${newActivity._id}`);
+  } catch (err) {
+    if (req.files) {
+      // Cleanup uploaded files on error
+      await Promise.all(req.files.map(f => cloudinary.uploader.destroy(f.filename)));
+    }
+    console.error('Activity creation error:', err);
+    req.flash("error", err.message || "Error creating activity");
+    res.redirect("/activities/new");
+  }
+};
 
 module.exports.renderEditForm = async (req, res) => {
     try {

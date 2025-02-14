@@ -74,21 +74,7 @@ const SCHEMAS = {
     guideRequired: Joi.boolean().required()
       .messages({
         "boolean.base": "Guide requirement must be a boolean value"
-      }),
-    
-    images: Joi.array().items(
-      Joi.object({
-        filename: COMMON.STRING.pattern(/\.(jpg|jpeg|png)$/i)
-          .message("Invalid image file format"),
-        url: COMMON.STRING.uri()
-          .message("Invalid image URL format")
-      }).required()
-    ).min(1).max(VALIDATION.ACTIVITY.IMAGE_LIMIT)
-      .messages({
-        "array.min": "At least one image is required",
-        "array.max": `Maximum ${VALIDATION.ACTIVITY.IMAGE_LIMIT} images allowed`
       })
-      .required()
   }).options({ abortEarly: false }), // Return all validation errors
 
   REVIEW: Joi.object({

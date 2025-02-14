@@ -45,7 +45,7 @@ router.route("/:id")
   .put(
     requireAuth,
     checkOwnership,
-    upload.array("images", 5),
+    upload.array("images", 1),
     validateActivity,
     wrapAsync(activityController.updateActivity)
   )

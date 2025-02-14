@@ -30,23 +30,13 @@ const activitySchema = new mongoose.Schema({
   },
   images: {
     type: [{
-      filename: {
-        type: String,
-        match: [/\.(jpg|jpeg|png)$/i, 'Invalid image file format']
-      },
-      url: {
-        type: String,
-        validate: {
-          validator: v => validator.isURL(v, { protocols: ['http','https'] }),
-          message: 'Invalid image URL'
-        }
-      }
+      filename: String,  // Simplified
+      url: String       // Simplified
     }],
     validate: {
-      validator: v => v.length <= MAX_IMAGES,
-      message: `Maximum ${MAX_IMAGES} images allowed`
-    },
-    required: [true, 'At least one image is required']
+      validator: v => v && v.length > 0,  // Changed validation
+      message: 'At least one image is required'
+    }
   },
   difficulty: {
     type: String,

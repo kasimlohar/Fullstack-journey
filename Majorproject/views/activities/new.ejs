@@ -28,18 +28,17 @@
 
       <!-- Description Field -->
       <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="description" required></textarea>
+        <label for="description" class="form-label">Description (minimum 50 characters)</label>
+        <textarea class="form-control" id="description" name="description" minlength="50" required></textarea>
         <div class="invalid-feedback">
           Please enter a short description.
         </div>
       </div>
 
       <!-- Image Upload Field -->
-
       <div class="mb-3">
-        <label for="image" class="form-label">Upload Image</label>
-        <input type="file" class="form-control" id="image" name="activity[image]" required>
+        <label for="image" class="form-label">Upload Image (Required)</label>
+        <input type="file" class="form-control" id="image" name="images" accept="image/*" required>
       </div>
 
       <!-- Difficulty Field -->
@@ -47,10 +46,11 @@
         <label for="difficulty" class="form-label">Difficulty</label>
         <select class="form-control" id="difficulty" name="difficulty" required>
           <option value="">Select Difficulty</option>
-          <option value="Easy">Easy</option>
-          <option value="Medium">Medium</option>
-          <option value="Hard">Hard</option>
-          <option value="Extreme">Extreme</option>
+          <!-- Updated options to match model enum -->
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+          <option value="Expert">Expert</option>
         </select>
         <div class="invalid-feedback">
           Please select a valid difficulty.
@@ -94,10 +94,11 @@
       </div>
 
       <!-- Guide Required Checkbox -->
-      <!-- <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" value="false">
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="guideRequired" name="guideRequired" value="true">
+        <input type="hidden" name="guideRequired" value="false">
         <label class="form-check-label" for="guideRequired">Guide Required</label>
-      </div> -->
+      </div>
 
       <!-- Submit Button -->
       <button type="submit" class="btn btn-success">Add Activity</button>
