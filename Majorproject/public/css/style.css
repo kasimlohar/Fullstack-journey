@@ -74,7 +74,7 @@
   main {
     margin-top: 1rem; /* Add some spacing after navbar for non-hero pages */
     flex: 1;
-    padding: calc(var(--spacing-unit) * 3) 0;
+    padding: calc(var(--spacing-unit) * 1) 0;
   }
   
   /* Card Component */
