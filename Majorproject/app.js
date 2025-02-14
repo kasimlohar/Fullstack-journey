@@ -125,9 +125,10 @@ app.use((req, res, next) => {
 });
 
 /* --------------------------
-Route Handlers
--------------------------- */
+  Route Handlers
+  -------------------------- */
 app.use("/activities", activityRouter);
+// Fix: Update review routes to include activityId
 app.use("/activities/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 

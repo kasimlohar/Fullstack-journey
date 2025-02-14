@@ -81,6 +81,18 @@ module.exports = {
     }
   },
 
+  // Validation middleware for reviews
+  validateReview: (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if (error) {
+        console.log("Validation error:", error); // Debug log
+        const msg = error.details.map(el => el.message).join(',');
+        req.flash('error', msg);
+        return res.redirect(`/activities/${req.params.id}`);
+    }
+    next();
+  },
+
   // Error handling middleware
   handleErrors: (err, req, res, next) => {
     const { statusCode = 500, message = 'Something went wrong!' } = err;

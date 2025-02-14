@@ -54,12 +54,61 @@ reviewSchema.virtual("formattedDate").get(function() {
 });
 
 // Update activity rating when review changes
-reviewSchema.post("save", async function(doc) {
-  await calculateActivityRating(doc.activity);
+reviewSchema.post("save", async function() {
+  const Review = this.constructor; // Get the Review model
+  const activity = this.activity;
+  
+  const stats = await Review.aggregate([
+    {
+      $match: { activity: activity }
+    },
+    {
+      $group: {
+        _id: '$activity',
+        avgRating: { $avg: '$rating' }
+      }
+    }
+  ]);
+  
+  // Update activity with new average
+  try {
+    await mongoose.model('Activity').findByIdAndUpdate(activity, {
+      averageRating: stats[0]?.avgRating || 0
+    });
+  } catch (e) {
+    console.error('Error updating activity rating:', e);
+  }
 });
 
-reviewSchema.post("remove", async function(doc) {
-  await calculateActivityRating(doc.activity);
+// Fix: Remove the old post remove hook and update with findOneAndDelete
+reviewSchema.pre('findOneAndDelete', async function(next) {
+    try {
+        const review = await this.model.findOne(this.getQuery());
+        if (review) {
+            const Activity = mongoose.model('Activity');
+            await Activity.findByIdAndUpdate(review.activity, {
+                $pull: { reviews: review._id }
+            });
+        }
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
+
+// Update rating calculation after delete
+reviewSchema.post('findOneAndDelete', async function(doc) {
+    if (doc) {
+        const Activity = mongoose.model('Activity');
+        const results = await Review.aggregate([
+            { $match: { activity: doc.activity } },
+            { $group: { _id: null, avg: { $avg: '$rating' } } }
+        ]);
+        
+        await Activity.findByIdAndUpdate(doc.activity, {
+            averageRating: results.length ? results[0].avg : 0
+        });
+    }
 });
 
 async function calculateActivityRating(activityId) {

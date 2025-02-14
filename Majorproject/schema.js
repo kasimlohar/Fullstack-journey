@@ -98,6 +98,13 @@ const SCHEMAS = {
   }).options({ abortEarly: false })
 };
 
+const reviewSchema = Joi.object({
+    review: Joi.object({
+        rating: Joi.number().required().min(1).max(5).integer(),
+        comment: Joi.string().required().trim()
+    }).required()
+});
+
 module.exports = {
   activitySchema: SCHEMAS.ACTIVITY,
   reviewSchema: SCHEMAS.REVIEW
