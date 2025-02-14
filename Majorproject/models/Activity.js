@@ -50,7 +50,7 @@ const activitySchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Price is required'],
     min: [0, 'Price cannot be negative'],
-    max: [10000, 'Price cannot exceed $10,000'],
+    max: [1000000, 'Price cannot exceed 10,00,000'],
     set: v => Math.round(v * 100) / 100 // Store as currency with 2 decimal places
   },
   location: {

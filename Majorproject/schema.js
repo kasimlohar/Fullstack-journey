@@ -19,7 +19,7 @@ const COMMON = {
 const VALIDATION = {
   ACTIVITY: {
     PRICE_MIN: 0,
-    PRICE_MAX: 10000,
+    PRICE_MAX: 1000000,
     DIFFICULTY: ["Beginner", "Intermediate", "Advanced", "Expert"],
     DURATION_REGEX: /^\d+\s(hours?|days?|weeks?)$/,
     IMAGE_LIMIT: 5,
