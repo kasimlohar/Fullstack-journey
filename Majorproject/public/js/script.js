@@ -86,3 +86,28 @@
   });
 
 })();
+
+// Add this to your script for interactive star rating
+document.addEventListener('DOMContentLoaded', function() {
+    const starLabels = document.querySelectorAll('.star-label');
+    
+    starLabels.forEach(label => {
+        label.addEventListener('mouseover', function() {
+            const rating = this.previousElementSibling.value;
+            highlightStars(rating);
+        });
+        
+        label.addEventListener('mouseout', function() {
+            const checkedInput = document.querySelector('.star-input:checked');
+            const rating = checkedInput ? checkedInput.value : 0;
+            highlightStars(rating);
+        });
+    });
+
+    function highlightStars(rating) {
+        starLabels.forEach(label => {
+            const starValue = label.previousElementSibling.value;
+            label.classList.toggle('active', starValue <= rating);
+        });
+    }
+});

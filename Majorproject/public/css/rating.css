@@ -42,3 +42,53 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.star-rating {
+    display: inline-flex;
+    gap: 0.125rem;
+    align-items: center;
+}
+
+.star-input {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.star-label {
+    cursor: pointer;
+    color: #e4e5e9;
+    font-size: 1.5rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.star-label:hover,
+.star-label:hover ~ .star-label,
+.star-input:checked ~ .star-label {
+    color: #ffd700;
+}
+
+.star-label.active {
+    color: #ffd700;
+}
+
+/* Rating display styles */
+.rating-display {
+    color: #ffd700;
+    font-size: 1.25rem;
+}
+
+.rating-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-left: 0.5rem;
+}
+
+/* Review card rating styles */
+.review-rating {
+    margin: 0.5rem 0;
+}

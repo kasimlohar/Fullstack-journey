@@ -158,16 +158,20 @@
           <% if(currUser) { %>
               <form action="/activities/<%= activity._id %>/reviews" method="POST" class="mb-4 needs-validation" novalidate>
                   <div class="mb-3">
-                      <label for="rating" class="form-label">Rating</label>
-                      <input type="number" 
-                            class="form-control" 
-                            id="rating" 
-                            name="review[rating]" 
-                            min="1" 
-                            max="5" 
-                            value="5" 
-                            required>
-                      <div class="invalid-feedback">Rating must be between 1 and 5</div>
+                      <label class="form-label">Rating</label>
+                      <div class="star-rating">
+                          <% for(let i = 5; i >= 1; i--) { %>
+                              <input type="radio" 
+                                     id="star<%= i %>" 
+                                     name="review[rating]" 
+                                     value="<%= i %>" 
+                                     class="star-input"
+                                     <%= i === 5 ? 'checked' : '' %>>
+                              <label for="star<%= i %>" class="star-label">
+                                  <i class="bi bi-star-fill"></i>
+                              </label>
+                          <% } %>
+                      </div>
                   </div>
                   
                   <div class="mb-3">
@@ -192,8 +196,18 @@
                       <div class="col-md-6 mb-3">
                           <div class="card">
                               <div class="card-body">
-                                  <h5 class="card-title"><%= review.author.username %></h5>
-                                  <p class="starability-result" data-rating="<%= review.rating %>"></p>
+                                  <div class="d-flex justify-content-between align-items-center mb-2">
+                                      <h5 class="card-title mb-0"><%= review.author.username %></h5>
+                                      <small class="text-muted">
+                                          <%= new Date(review.createdAt).toLocaleDateString() %>
+                                      </small>
+                                  </div>
+                                  <div class="rating-display">
+                                      <% for(let i = 1; i <= 5; i++) { %>
+                                          <i class="bi bi-star<%= i <= review.rating ? '-fill' : '' %>"></i>
+                                      <% } %>
+                                      <span class="rating-text">(<%= review.rating %>/5)</span>
+                                  </div>
                                   <p class="card-text"><%= review.comment %></p>
                                   <!-- Show delete button only to review author -->
                                   <% if(currUser && review.author.equals(currUser._id)) { %>
