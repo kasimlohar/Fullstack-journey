@@ -6,7 +6,7 @@ const ExpressError = require("./utils/ExpressError");
 const { activitySchema, reviewSchema } = require("./schema");
 const { validationResult } = require('express-validator');
 const rateLimit = require('express-rate-limit');
-const { cloudinary } = require("./cloudConfig"); // Add this import
+
 
 module.exports = {
   // Authentication middleware
@@ -51,27 +51,12 @@ module.exports = {
 
   // Validation middleware
   validateActivity: (req, res, next) => {
-    try {
-        // First validate the request body
-        const { error } = activitySchema.validate(req.body);
-        if (error) {
-            // Clean up any uploaded files
-            if (req.files) {
-                Promise.all(req.files.map(file => 
-                    cloudinary.uploader.destroy(file.filename)
-                )).catch(err => console.error('Error cleaning up files:', err));
-            }
-            throw new ExpressError(error.details.map(el => el.message).join(", "), 400);
-        }
-        
-        // Then check for images
-        if (!req.files || req.files.length === 0) {
-            throw new ExpressError("At least one image is required", 400);
-        }
-        
+    let { error } = activitySchema.validate(req.body);
+    if (error) {
+        let errMsg = error.details.map((el) => el.message).join(",");
+        throw new ExpressError(errMsg, 400);
+    } else {
         next();
-    } catch (err) {
-        next(err);
     }
   },
 

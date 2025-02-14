@@ -158,17 +158,25 @@ module.exports.destroyActivity = async (req, res) => {
             return res.redirect('/activities');
         }
 
-        // Delete images from cloudinary
-        for (let image of activity.images) {
-            await cloudinary.uploader.destroy(image.filename);
+        // Delete images from cloudinary first
+        if (activity.images && activity.images.length > 0) {
+            try {
+                await Promise.all(activity.images.map(image => 
+                    cloudinary.uploader.destroy(image.filename)
+                ));
+            } catch (cloudinaryErr) {
+                console.error('Error deleting images:', cloudinaryErr);
+            }
         }
         
+        // Delete the activity and associated reviews
         await Activity.findByIdAndDelete(id);
+        
         req.flash('success', 'Successfully deleted activity');
-        res.redirect('/activities');
+        return res.redirect('/activities');
     } catch (err) {
         console.error('Delete error:', err);
         req.flash('error', 'Error deleting activity');
-        res.redirect(`/activities/${req.params.id}`);
+        return res.redirect(`/activities/${req.params.id}`);
     }
 };

@@ -45,13 +45,13 @@ router.route("/:id")
   .put(
     requireAuth,
     checkOwnership,
-    upload.array("images", 1),
+    upload.array("images", 5),
     validateActivity,
     wrapAsync(activityController.updateActivity)
   )
   .delete(
     requireAuth,
-    checkOwnership,
+    checkOwnership, // Ensures only owner can delete
     wrapAsync(activityController.destroyActivity)
   );
 
