@@ -49,7 +49,7 @@ npm run dev
 ```
 
 ### 2. Environment Setup
-Create a `.env` file in the root directory:
+1. Copy `.env.example` to `.env`:
 ```env
 NODE_ENV=development
 PORT=8080
