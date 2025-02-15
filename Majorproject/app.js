@@ -14,6 +14,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const helmet = require("helmet");
@@ -100,8 +101,21 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+const store = MongoStore.create({
+  mongoUrl: mongoURI,
+  touchAfter: 24 * 3600,
+  crypto: {
+    secret: SESSION_SECRET,
+  },
+});
+
+store.on("error", function (e) {
+  console.log("Session Store Error", e);
+});
+
 // Session Configuration
 const sessionConfig = {
+  store,
   name: "adventureSession",
   secret: SESSION_SECRET,
   resave: false,
@@ -113,6 +127,8 @@ const sessionConfig = {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   },
 };
+
+
 app.use(session(sessionConfig));
 
 // Flash Messages
