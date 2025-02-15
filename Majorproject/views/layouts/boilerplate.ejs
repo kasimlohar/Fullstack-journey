@@ -53,6 +53,10 @@
 
     <!-- Navigation -->
     <%- include("../includes/navbar.ejs") %>
+    
+    <% if(currentUrl === '/' || currentUrl === '/activities') { %>
+        <%- include("../includes/hero.ejs") %>
+    <% } %>
 
     <!-- Main Content -->
     <main id="main-content" class="container mt-4 flex-shrink-0" role="main">
