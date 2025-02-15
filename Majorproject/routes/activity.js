@@ -7,13 +7,15 @@ const { storage } = require("../cloudConfig.js");
 const upload = multer({
     storage,
     limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB limit
+        fileSize: 5 * 1024 * 1024, // 5MB limit per file
         files: 5 // Max 5 files
     },
     fileFilter: (req, file, cb) => {
         // Accept only images
-        if (!file.mimetype.startsWith('image/')) {
-            cb(new Error('Only image files are allowed!'), false);
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!allowedTypes.includes(file.mimetype)) {
+            cb(new Error('Only JPG and PNG images are allowed!'), false);
+            return;
         }
         cb(null, true);
     }
