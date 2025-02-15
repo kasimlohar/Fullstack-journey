@@ -43,8 +43,8 @@ const app = express();
    Environment Variables
    -------------------------- */
 const port = process.env.PORT || 8080;
-const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/wanderlust";
-const SESSION_SECRET = process.env.SESSION_SECRET || "developmentSecret";
+const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/wildspire";
+const SESSION_SECRET = process.env.SESSION_SECRET || "wildspireSecret";
 
 /* --------------------------
    Database Connection
