@@ -77,12 +77,21 @@ Middleware Stack
 // app.use(helmet());
 // app.use(mongoSanitize());
 
-// Rate Limiting
+// Rate Limiting - Adjust these values to be more lenient
 const limiter = rateLimit({
-windowMs: 15 * 60 * 1000, // 15 minutes
-max: 100, // Limit each IP to 100 requests per window
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 1000, // Increased from 100 to 1000 requests per window
+    message: 'Too many requests from this IP, please try again after 15 minutes',
+    standardHeaders: true,
+    legacyHeaders: false,
+    // Add skip function for development
+    skip: () => process.env.NODE_ENV === 'development'
 });
-app.use(limiter);
+
+// Only apply rate limiting to API routes if needed
+app.use('/api', limiter); // Apply to API routes only
+// Remove or comment out the global rate limiter
+// app.use(limiter);
 
 // Static Assets
 app.use(express.static(path.join(__dirname, "public")));
