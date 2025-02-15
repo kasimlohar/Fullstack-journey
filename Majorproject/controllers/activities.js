@@ -59,45 +59,49 @@ module.exports.showActivity = async (req, res) => {
 }
 
 module.exports.createActivity = async (req, res, next) => {
-  try {
-    // Remove guide required handling
-    
-    // Process images first
-    if (!req.files || !req.files.length) {
-      req.flash('error', 'At least one image is required');
-      return res.redirect('/activities/new');
+    try {
+        if (!req.files || !req.files.length) {
+            req.flash('error', 'Please upload at least one image');
+            return res.redirect('/activities/new');
+        }
+
+        const newActivity = new Activity({
+            ...req.body,
+            images: req.files.map(f => ({
+                url: f.path,
+                filename: f.filename
+            })),
+            owner: req.user._id,
+            guideRequired: false
+        });
+
+        // Get location coordinates
+        const geoResponse = await geocodingClient.forwardGeocode({
+            query: req.body.location,
+            limit: 1,
+        }).send();
+
+        if (!geoResponse.body.features.length) {
+            req.flash('error', 'Invalid location. Please enter a valid location.');
+            return res.redirect('/activities/new');
+        }
+
+        newActivity.geometry = geoResponse.body.features[0].geometry;
+        await newActivity.save();
+
+        req.flash('success', 'Successfully created new activity!');
+        res.redirect(`/activities/${newActivity._id}`);
+    } catch (err) {
+        console.error('Error creating activity:', err);
+        if (req.files) {
+            // Cleanup uploaded files on error
+            await Promise.all(req.files.map(f => 
+                cloudinary.uploader.destroy(f.filename)
+            ));
+        }
+        req.flash('error', err.message || 'Error creating activity');
+        res.redirect('/activities/new');
     }
-
-    // Create activity with processed data
-    const newActivity = new Activity({
-      ...req.body,
-      images: req.files.map(f => ({
-        url: f.path,
-        filename: f.filename
-      })),
-      owner: req.user._id,
-      guideRequired: false // Set default value
-    });
-
-    // Get location coordinates
-    const geoResponse = await geocodingClient.forwardGeocode({
-      query: req.body.location,
-      limit: 1,
-    }).send();
-
-    if (!geoResponse.body.features.length) {
-      req.flash('error', 'Invalid location. Please enter a valid location.');
-      return res.redirect('/activities/new');
-    }
-
-    newActivity.geometry = geoResponse.body.features[0].geometry;
-    await newActivity.save();
-
-    req.flash('success', 'Successfully created new activity!');
-    res.redirect(`/activities/${newActivity._id}`);
-  } catch (err) {
-    // ...existing error handling...
-  }
 };
 
 module.exports.renderEditForm = async (req, res) => {

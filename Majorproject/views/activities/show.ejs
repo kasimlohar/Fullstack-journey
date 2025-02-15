@@ -15,16 +15,13 @@
     <div class="col-lg-8">
       <!-- Image Gallery -->
       <div class="activity-gallery mb-4">
-        <div class="swiper">
+        <div class="swiper activitySwiper">
           <div class="swiper-wrapper">
             <% activity.images.forEach((image, index) => { %>
               <div class="swiper-slide">
-                <a href="<%= image.url %>" data-fslightbox>
-                  <img src="<%= image.url %>" 
-                       class="img-fluid rounded" 
-                       alt="<%= activity.name %> - Image <%= index + 1 %>"
-                       loading="lazy">
-                </a>
+                <img src="<%= image.url %>" 
+                     alt="<%= activity.name %> - Image <%= index + 1 %>"
+                     class="img-fluid">
               </div>
             <% }) %>
           </div>
