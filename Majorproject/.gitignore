@@ -1,2 +1,17 @@
-node_modules
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Cloudinary uploads
+uploads/
 

@@ -5,6 +5,10 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+// Update MongoDB connection string
+const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/wildspire";
+const SESSION_SECRET = process.env.SESSION_SECRET || "wildspireSecret";
+
 /* --------------------------
 Core Dependencies
 -------------------------- */
@@ -44,8 +48,6 @@ const app = express();
    Environment Variables
    -------------------------- */
 const port = process.env.PORT || 8080;
-const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/wildspire";
-const SESSION_SECRET = process.env.SESSION_SECRET || "wildspireSecret";
 
 /* --------------------------
    Database Connection
