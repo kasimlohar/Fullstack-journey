@@ -1,92 +1,86 @@
 import { useState } from "react";
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import './CommentsForm.css';
 
-export default function CommentsForm({addNewComment}) {
-    // let [formData, setFormData] = useState({
-    //     username: "",
-    //     remarks: "",
-    //     rating: 5,
-    // });
-
-    const validate = values => {
-        const errors = {};
-        if (!values.username) {
-            errors.username = 'Username cannot be empty';
-        }
-
-        return errors;
-    };
+export default function CommentsForm({ addNewComment }) {
+    const validationSchema = Yup.object({
+        username: Yup.string()
+            .required('Username is required')
+            .min(3, 'Username must be at least 3 characters'),
+        remarks: Yup.string()
+            .required('Remarks are required')
+            .min(5, 'Remarks must be at least 5 characters'),
+        rating: Yup.number()
+            .required('Rating is required')
+            .min(1, 'Rating must be between 1 and 5')
+            .max(5, 'Rating must be between 1 and 5')
+    });
 
     const formik = useFormik({
         initialValues: {
             username: '',
             remarks: '',
-            rating: '',
+            rating: 5,
         },
-        validate,
-        onSubmit: values => {
-           alert(JSON.stringify(values, null, 2));
+        validationSchema,
+        onSubmit: (values, { resetForm }) => {
+            addNewComment(values);
+            resetForm();
         },
     });
-    
-
-    // let handleInputChange = (event) => {
-    //     setFormData((currData) => {
-    //         return {...currData, [event.target.name]: event.target.value}
-    //     })
-    // }; 
-
-    // let handleSubmit = (event) => {
-    //     console.log(formData);
-    //     addNewComment(formData);
-    //     event.preventDefault();
-    //     setFormData({
-    //         username: "",
-    //         remarks: "",
-    //         rating: 5,
-    //     })
-    // }
 
     return (
-        <div>
+        <div className="comments-form">
             <h4>Give a Comment</h4>
             <form onSubmit={formik.handleSubmit}>
-                <label htmlFor="username">Username</label>
-                <input 
-                placeholder="username" 
-                type="text" 
-                value={formik.values.username} 
-                onChange={formik.handleChange} 
-                id="username" 
-                name="username"
-                />
-                {formik.errors.username ? <p style={{color: "red"}}>{formik.errors.username}</p> : null}
-                <br /> <br />
+                <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input 
+                        className="form-input"
+                        placeholder="username" 
+                        type="text" 
+                        value={formik.values.username} 
+                        onChange={formik.handleChange} 
+                        id="username" 
+                        name="username"
+                    />
+                    {formik.errors.username && 
+                        <p className="error-message">{formik.errors.username}</p>
+                    }
+                </div>
 
-                <label htmlFor="remarks">Remarks</label>
-                <textarea 
-                value={formik.values.remarks} 
-                placeholder="add few Remarks" 
-                onChange={formik.handleChange} 
-                id="remarks" 
-                name="remarks">Remarks</textarea>
-                {formik.errors.remarks ? <div>{formik.errors.remarks}</div> : null}
-                <br /> <br />
+                <div className="form-group">
+                    <label htmlFor="remarks">Remarks</label>
+                    <textarea 
+                        className="form-input"
+                        value={formik.values.remarks} 
+                        placeholder="add few Remarks" 
+                        onChange={formik.handleChange} 
+                        id="remarks" 
+                        name="remarks">Remarks</textarea>
+                    {formik.errors.remarks && 
+                        <div className="error-message">{formik.errors.remarks}</div>
+                    }
+                </div>
 
-                <label htmlFor="rating">Rating</label>
-                <input 
-                placeholder="rating" 
-                type="number"  
-                min={1} max={5} 
-                value={formik.values.rating} 
-                onChange={formik.handleChange} 
-                id="rating" 
-                name="rating"/>
-                {formik.errors.rating ? <div>{formik.errors.rating}</div> : null}
+                <div className="form-group">
+                    <label htmlFor="rating">Rating</label>
+                    <input 
+                        className="rating-input"
+                        placeholder="rating" 
+                        type="number"  
+                        min={1} max={5} 
+                        value={formik.values.rating} 
+                        onChange={formik.handleChange} 
+                        id="rating" 
+                        name="rating"/>
+                    {formik.errors.rating && 
+                        <div className="error-message">{formik.errors.rating}</div>
+                    }
+                </div>
 
-
-                <br /> <br />
-                <button type="submit">Add Comment</button>
+                <button type="submit" className="submit-button">Add Comment</button>
             </form>
         </div>
     )

@@ -1,26 +1,40 @@
 import { useState, useEffect } from "react";
+import './Counter.css';
 
-export default function Counter(){
-    let [countx, setCountx ] = useState(0);
-    let [county, setCounty ] = useState(0);
+export default function Counter() {
+    const [counts, setCounts] = useState({ x: 0, y: 0 });
 
-    let inCountx = () => {
-        setCountx(currCount => currCount +1)
-    }
-    let inCounty = () => {
-        setCounty(currCount => currCount +1)
-    }
+    const updateCount = (key) => {
+        setCounts(prev => ({
+            ...prev,
+            [key]: prev[key] + 1
+        }));
+    };
 
-    useEffect(function printSomething() {
-        console.log("this is a side effect!")
-    }, [countx])
+    const resetCounts = () => {
+        setCounts({ x: 0, y: 0 });
+    };
+
+    useEffect(() => {
+        document.title = `Count X: ${counts.x} | Count Y: ${counts.y}`;
+    }, [counts]);
+
     return (
-        <div>
-            <h3>Count x = {countx}</h3>
-            <button onClick={inCountx}>+1</button>
-
-            <h3>Count y = {county}</h3>
-            <button onClick={inCounty}>+1</button>
+        <div className="counter-container">
+            {Object.entries(counts).map(([key, value]) => (
+                <div key={key} className="counter-section">
+                    <h3 className="counter-value">Count {key.toUpperCase()} = {value}</h3>
+                    <button 
+                        className="counter-button" 
+                        onClick={() => updateCount(key)}
+                    >
+                        +1
+                    </button>
+                </div>
+            ))}
+            <button className="reset-button" onClick={resetCounts}>
+                Reset All
+            </button>
         </div>
-    )
+    );
 }

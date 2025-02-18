@@ -1,3 +1,16 @@
 .TicketNum {
-    font-size: 4rem;
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  background: #3498db;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin: 0.5rem;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.TicketNum:hover {
+  transform: scale(1.1);
 }

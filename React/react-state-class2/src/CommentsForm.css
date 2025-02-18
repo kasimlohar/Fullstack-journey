@@ -1,0 +1,41 @@
+.comments-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #2c3e50;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.comments-form input,
+.comments-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    border: 2px solid #3498db;
+    background: #34495e;
+    color: white;
+}
+
+.comments-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+.rating-input {
+    width: 100px !important;
+}
+
+.submit-button {
+    background: #3498db;
+    color: white;
+    width: 100%;
+    margin-top: 1rem;
+}

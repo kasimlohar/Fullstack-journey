@@ -1,0 +1,54 @@
+.joke-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.joke-setup {
+    background: #2c3e50;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    font-size: 1.2rem;
+}
+
+.joke-punchline {
+    background: #34495e;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    color: #3498db;
+    font-size: 1.3rem;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.joke-button {
+    background: #3498db;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.loading {
+    color: #3498db;
+    font-size: 1.2rem;
+    animation: pulse 1s infinite;
+}
+
+.error {
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
