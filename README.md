@@ -119,27 +119,40 @@ The **Major Project** is the highlight of my repository. This full-stack applica
 
 ---
 
-## React Projects
+## React Projects 🚀
 
-The `React` folder contains several projects that demonstrate React development:
+### 1. WeatherWise
+A modern weather application built with React and Material-UI.
+- Real-time weather data using OpenWeatherMap API
+- Responsive design with Material-UI
+- Dynamic backgrounds based on weather conditions
+- Error handling and accessibility features
+- [View Project](/React/Projects/weatherwise)
 
-- **MaterialUI:**  
-  A mini-project built with Material-UI components. See its [README](./React/MaterialUI/mini-project-react/README.md).
+### 2. React Playground
+A comprehensive demo application showcasing React concepts:
+- Multiple component demonstrations (TodoList, Comments, Counter)
+- State management patterns
+- Form handling with Formik
+- Error boundaries and CSS Modules
+- [View Project](/React/react-playground)
 
-- **react-state-class:**  
-  A project focusing on React state management. Check its [README](./React/react-state-class/README.md).
-
-- **react-state-class2:**  
-  An additional project exploring component interactions and state management. See its [README](./React/react-state-class2/README.md).
+### 3. React State Class
+Educational materials for React state management:
+- Class and Functional components
+- Hooks implementation
+- State management patterns
+- [View Project](/React/react-state-class)
 
 ---
 
 ## Tech Stack
 
 - **Backend:** Node.js, Express, MongoDB, EJS, SQL (in select projects)
-- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-- **React Projects:** React, Vite, Material-UI
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+), React, Material-UI, CSS Modules
 - **Database:** MongoDB, SQL
+- **APIs:** OpenWeatherMap API
+- **Build Tools:** Vite
 
 ---
 
@@ -165,3 +178,18 @@ For any questions or feedback, please contact:
 ---
 
 *This repository is continuously updated as I progress in my learning journey. Stay tuned for new projects and improvements!*
+
+---
+
+## Getting Started 🏁
+
+### Running React Projects
+```bash
+# Navigate to specific React project
+cd React/[project-name]
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
