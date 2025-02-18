@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import "./SearchBox.css";
+import "../styles/SearchBox.css";
 
 /**
  * Search component for fetching weather data from API
@@ -10,8 +10,8 @@ import "./SearchBox.css";
 export default function SearchBox({ updateInfo }) {
   const [city, setCity] = useState("");
   const [error, setError] = useState(false);
-  const API_URL = "https://api.openweathermap.org/data/2.5/weather";
-  const API_KEY = "7d61137de1d70f97199880aaa55919fb"; // Note: In production, move to environment variables
+  const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+  const API_URL = import.meta.env.VITE_API_BASE_URL; 
 
   /**
    * Fetches weather data from OpenWeather API

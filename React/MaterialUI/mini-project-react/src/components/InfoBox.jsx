@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
-import "./InfoBox.css";
+import "../styles/InfoBox.css";
 
 // Image URLs for different weather conditions
 const WEATHER_IMAGES = {
