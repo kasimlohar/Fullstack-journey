@@ -1,19 +1,11 @@
-import { useState } from 'react'
-import './App.css'
-import SearchBox from './SearchBox'
-import InfoBox from './InfoBox'
-import WeatherApp from './WeatherApp'
+import './App.css';
+import WeatherApp from './WeatherApp';
 
-
+/**
+ * Main application component that serves as the root of the weather application
+ */
 function App() {
-
-  return (
-    <>
-    <WeatherApp />
-    {/* <SearchBox />
-    <InfoBox /> */}
-    </>
-  )
+  return <WeatherApp />;
 }
 
-export default App
+export default App;

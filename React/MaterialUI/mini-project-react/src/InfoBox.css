@@ -1,8 +1,21 @@
 .InfoBox {
-    text-align: centre;
+text-align: center;
+margin-top: 2rem;
 }
 
-.cardContainer {
-    display: flex;
-    justify-content: center;
+.weather-card {
+margin: 20px auto;
+max-width: 500px;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.placeholder {
+color: #666;
+font-style: italic;
+}
+
+.weather-description {
+text-transform: capitalize;
+margin-top: 1rem;
+color: #1976d2;
 }
