@@ -107,8 +107,10 @@ The **Major Project** is the highlight of my repository. This full-stack applica
 
 **Screenshots:**
 
-![Home Page](./Majorproject/screenshots/home.png)  
-![Dashboard](./Majorproject/screenshots/dashboard.png)
+![Screenshot 2025-02-16 002908](https://github.com/user-attachments/assets/6c4e714d-71d4-477b-b30b-f74389c181f1)
+
+![Screenshot 2025-02-16 002948](https://github.com/user-attachments/assets/4dd66592-5aaf-4193-9e55-4ad481ad6c66)
+
 
 **Installation & Usage:**
 1. Clone the repository.
@@ -127,7 +129,7 @@ A modern weather application built with React and Material-UI.
 - Responsive design with Material-UI
 - Dynamic backgrounds based on weather conditions
 - Error handling and accessibility features
-- [View Project](/React/Projects/weatherwise)
+- [View Project](/React/Projects/Weatherwise)
 
 ### 2. React Playground
 A comprehensive demo application showcasing React concepts:
@@ -180,16 +182,3 @@ For any questions or feedback, please contact:
 *This repository is continuously updated as I progress in my learning journey. Stay tuned for new projects and improvements!*
 
 ---
-
-## Getting Started 🏁
-
-### Running React Projects
-```bash
-# Navigate to specific React project
-cd React/[project-name]
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
